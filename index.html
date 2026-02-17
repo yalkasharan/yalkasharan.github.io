@@ -25,7 +25,7 @@
 /* ===== GLOBAL ===== */
 body{
     margin:0;
-    font-family:Segoe UI, system-ui, sans-serif;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background:var(--bg-main);
     color:var(--text-main);
     display:flex;
@@ -37,14 +37,17 @@ body{
     height:100vh;
     background:var(--bg-sidebar);
     border-right:1px solid var(--border);
-    padding-top:30px;
+    padding-top:40px;
     position:fixed;
+    overflow-y:auto;
 }
 
 .sidebar h2{
     text-align:center;
-    margin-bottom:40px;
-    font-weight:600;
+    margin-bottom:50px;
+    font-weight:700;
+    font-size:18px;
+    letter-spacing:-0.5px;
 }
 
 .sidebar button{
@@ -56,120 +59,281 @@ body{
     text-align:left;
     font-size:15px;
     cursor:pointer;
-    transition:0.2s;
+    transition:all 0.2s ease;
+    font-weight:500;
 }
 
 .sidebar button:hover{
-    background:#f1f5f9;
+    background:linear-gradient(90deg, #f0f4f8 0%, #e8f1ff 100%);
     color:var(--primary);
 }
 
 .sidebar button.active{
-    background:var(--primary-soft);
+    background:linear-gradient(90deg, #f0f4f8 0%, #e8f1ff 100%);
     color:var(--primary);
     border-left:3px solid var(--primary);
+    font-weight:600;
 }
 
 /* ===== MAIN ===== */
 .main{
     margin-left:220px;
-    padding:50px;
-    max-width:900px;
+    padding:60px 50px;
+    max-width:950px;
+}
+
+.hero{
+    margin-bottom:50px;
 }
 
 h1{
-    margin-bottom:5px;
-    font-size:32px;
+    margin:0 0 8px 0;
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-0.5px;
+}
+
+.tagline{
+    font-size:18px;
+    color:var(--primary);
+    font-weight:600;
+    margin:0 0 16px 0;
+}
+
+.intro{
+    font-size:15px;
+    line-height:1.7;
+    color:var(--text-muted);
+    max-width:700px;
 }
 
 h2{
-    margin-top:40px;
-    font-size:22px;
+    margin-top:50px;
+    margin-bottom:24px;
+    font-size:24px;
+    font-weight:700;
+    color:var(--text-main);
+}
+
+h3{
+    font-size:16px;
+    font-weight:600;
+    margin:0 0 8px 0;
 }
 
 p{
     color:var(--text-muted);
     line-height:1.6;
+    margin:0 0 12px 0;
 }
 
 /* ===== CARDS ===== */
 .card{
     background:var(--bg-card);
     border:1px solid var(--border);
-    border-radius:10px;
-    padding:24px;
+    border-radius:12px;
+    padding:28px;
     margin-top:18px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.05);
+    transition:all 0.3s ease;
+}
+
+.card:hover{
+    border-color:#d1d5db;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    transform:translateY(-2px);
 }
 
 /* ===== SKILLS ===== */
-.tags span{
-    background:#f1f5f9;
-    padding:6px 12px;
-    border-radius:6px;
-    margin:6px 6px 0 0;
-    display:inline-block;
-    font-size:13px;
+.skills-category{
+    margin-bottom:28px;
 }
 
-/* ===== PROJECT GRID ===== */
+.skills-category h4{
+    font-size:13px;
+    font-weight:700;
+    color:var(--text-main);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:0 0 12px 0;
+    opacity:0.7;
+}
+
+.tags span{
+    background:linear-gradient(135deg, #f0f4f8 0%, #e8f1ff 100%);
+    color:var(--primary);
+    padding:8px 14px;
+    border-radius:8px;
+    margin:6px 8px 6px 0;
+    display:inline-block;
+    font-size:14px;
+    font-weight:500;
+    border:1px solid #d1dff4;
+    transition:all 0.2s ease;
+}
+
+.tags span:hover{
+    background:linear-gradient(135deg, #e8f1ff 0%, #e0ecff 100%);
+    border-color:#2563eb;
+}
+
+/* ===== EXPERIENCE ===== */
+.experience-item{
+    display:block;
+}
+
+.experience-item h3{
+    font-size:17px;
+    font-weight:700;
+    margin:0 0 6px 0;
+    color:var(--text-main);
+}
+
+.experience-meta{
+    font-size:13px;
+    color:var(--primary);
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.experience-item p{
+    color:var(--text-muted);
+    font-size:15px;
+    line-height:1.6;
+}
 .project-grid{
     display:grid;
     grid-template-columns:1fr;
-    gap:18px;
+    gap:20px;
+}
+
+.project-card{
+    border-left:4px solid var(--primary);
+    transition:all 0.3s ease;
+}
+
+.project-card:hover{
+    border-left-color:#1e3a8a;
+}
+
+.project-tech{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:12px;
+}
+
+.project-tech span{
+    background:#f1f5f9;
+    color:#0f172a;
+    padding:4px 10px;
+    border-radius:4px;
+    font-size:12px;
+    font-weight:500;
 }
 
 /* ===== EDUCATION ===== */
 .education-item{
     display:flex;
-    gap:16px;
-    margin-top:18px;
-    padding-bottom:18px;
-    border-bottom:1px solid var(--border);
+    gap:18px;
+    margin-top:20px;
+    padding:18px;
+    border-radius:10px;
+    background:linear-gradient(135deg, #f9fafb 0%, #f0f4f8 100%);
+    transition:all 0.3s ease;
+}
+
+.education-item:hover{
+    background:linear-gradient(135deg, #f0f4f8 0%, #e8f1ff 100%);
 }
 
 .education-item:last-child{
-    border-bottom:none;
+    margin-bottom:0;
 }
 
 .education-icon{
-    width:56px;
-    height:56px;
-    border-radius:8px;
-    background:#1e3a8a;
+    width:60px;
+    height:60px;
+    border-radius:10px;
+    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:700;
-    font-size:14px;
+    font-size:15px;
     flex-shrink:0;
+    box-shadow:0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .education-content h3{
     margin:0 0 6px 0;
     font-size:16px;
-    font-weight:600;
+    font-weight:700;
+    color:var(--text-main);
 }
 
 .education-content p{
-    margin:3px 0;
+    margin:4px 0;
     font-size:14px;
 }
 
 /* ===== BUTTON ===== */
 .btn{
-    background:var(--primary);
+    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     color:white;
-    padding:7px 14px;
-    border-radius:6px;
+    padding:10px 20px;
+    border-radius:8px;
     text-decoration:none;
     font-size:14px;
+    font-weight:600;
     display:inline-block;
-    margin-top:10px;
+    margin-top:12px;
+    border:none;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    box-shadow:0 2px 8px rgba(37, 99, 235, 0.2);
 }
 
 .btn:hover{
-    opacity:0.9;
+    transform:translateY(-2px);
+    box-shadow:0 4px 14px rgba(37, 99, 235, 0.35);
+    background:linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+}
+
+/* ===== CONTACT ===== */
+.contact-item{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    margin-top:18px;
+    padding:14px;
+}
+
+.contact-icon{
+    width:44px;
+    height:44px;
+    border-radius:10px;
+    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+    box-shadow:0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.contact-info a{
+    color:var(--primary);
+    text-decoration:none;
+    font-weight:600;
+    transition:all 0.2s ease;
+}
+
+.contact-info a:hover{
+    color:#1e3a8a;
+    text-decoration:underline;
 }
 
 .section{
@@ -195,9 +359,11 @@ p{
 <!-- ===== MAIN CONTENT ===== -->
 <div class="main">
 
+<div class="hero">
 <h1>Sharan Yalka</h1>
-<p><strong>Data Engineer · Data Analytics · Power BI Developer</strong></p>
-<p>Building reliable data systems that turn complex datasets into clear business decisions.</p>
+<p class="tagline">Data Engineer · Data Analytics · Power BI Developer</p>
+<p class="intro">Building reliable, scalable data systems that empower organizations to make better decisions. I specialize in designing efficient data pipelines, building analytical solutions, and transforming complex datasets into actionable insights.</p>
+</div>
 
 <!-- ABOUT -->
 <div id="about" class="section">
@@ -213,13 +379,14 @@ I enjoy working with complex data problems and turning them into clear, practica
 I'm currently pursuing a Master's degree in Computer Science at DTU, where I work hands-on with Python, SQL, Power BI, Excel, and related data technologies. Alongside the technical side, I care about data quality, security, and how data solutions align with real business needs. I'm curious, detail-oriented, and always looking to deepen my skills while contributing meaningful, data-driven value.
 </p>
 
-<h3 style="margin-top:32px; margin-bottom:0;">Education</h3>
+<h3 style="margin-top:40px; margin-bottom:20px; font-size:18px; font-weight:700;">Education</h3>
 
 <div class="education-item">
 <div class="education-icon">DTU</div>
 <div class="education-content">
 <h3>DTU - Technical University of Denmark</h3>
 <p><strong>Master's degree, Computer Science</strong></p>
+<p style="color:var(--text-muted); font-size:14px;">Jan 2025 – Present</p>
 </div>
 </div>
 
@@ -228,7 +395,7 @@ I'm currently pursuing a Master's degree in Computer Science at DTU, where I wor
 <div class="education-content">
 <h3>Jawaharlal Nehru Technological University Hyderabad (JNTUH)</h3>
 <p><strong>Bachelor of Technology, Computer Science and Engineering</strong></p>
-<p style="color:var(--text-muted);">Aug 2019 – Aug 2023</p>
+<p style="color:var(--text-muted); font-size:14px;">Aug 2019 – Aug 2023</p>
 </div>
 </div>
 </div>
@@ -236,16 +403,42 @@ I'm currently pursuing a Master's degree in Computer Science at DTU, where I wor
 
 <!-- SKILLS -->
 <div id="skills" class="section">
-<h2>Skills</h2>
-<div class="card tags">
+<h2>Technical Skills</h2>
+<div class="card">
+
+<div class="skills-category">
+<h4>Data Platforms & Tools</h4>
+<div class="tags">
 <span>Power BI</span>
 <span>DAX</span>
 <span>SQL</span>
 <span>Python</span>
 <span>Excel</span>
+</div>
+</div>
+
+<div class="skills-category">
+<h4>Specializations</h4>
+<div class="tags">
 <span>Data Engineering</span>
 <span>Analytics</span>
-<span>Mathematics</span>
+<span>Data Pipelines</span>
+<span>Business Intelligence</span>
+<span>Statistical Analysis</span>
+</div>
+</div>
+
+<div class="skills-category">
+<h4>Domains</h4>
+<div class="tags">
+<span>Data Modeling</span>
+<span>ETL/ELT</span>
+<span>Dashboard Design</span>
+<span>Data Quality</span>
+<span>Performance Optimization</span>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -254,44 +447,95 @@ I'm currently pursuing a Master's degree in Computer Science at DTU, where I wor
 <h2>Experience</h2>
 
 <div class="card">
-<h3>Student Analyst — Phillips Medisize</h3>
-<p>Cost estimation and analytics supporting data-driven decisions.</p>
+<div class="experience-item">
+<h3>Student Analyst</h3>
+<p class="experience-meta">Phillips Medisize | Aug 2025 – Present · 7 mos</p>
+<p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">Copenhagen, Capital Region of Denmark, Denmark · On-site</p>
+<ul style="margin:12px 0; padding-left:20px; color:var(--text-muted); line-height:1.8;">
+<li>Performing cost estimation and financial analysis to support strategic business decisions</li>
+<li>Developing and maintaining Power BI dashboards for data visualization and KPI tracking</li>
+<li>Collaborating with cross-functional teams to gather requirements and deliver data-driven insights</li>
+</ul>
+<p style="font-size:13px; margin-top:14px;"><strong>Skills:</strong> Data Analytics, Power BI, SQL, Cost Analysis, Business Intelligence</p>
+</div>
 </div>
 
 <div class="card">
-<h3>EDI Analyst — Kintetsu World Express</h3>
-<p>SQL validation, Power BI dashboards, and secure B2B data exchange.</p>
+<div class="experience-item">
+<h3>Electronic Data Interchange Analyst</h3>
+<p class="experience-meta">Kintetsu World Express | Feb 2024 – Jan 2025 · 1 yr</p>
+<p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">Hyderabad, Telangana, India · On-site</p>
+<ul style="margin:12px 0; padding-left:20px; color:var(--text-muted); line-height:1.8;">
+<li>Supported EDI/B2B systems, ensuring secure and accurate data transmission between partners</li>
+<li>Utilized SQL for data validation, issue resolution, and reporting</li>
+<li>Designed and developed Power BI dashboards to track progress and deliver actionable insights</li>
+<li>Managed tickets using Jira/Confluence and collaborated with cross-functional teams and external partners</li>
+<li>Gained hands-on experience with webMethods and Axway platforms for integration and data exchange</li>
+</ul>
+<p style="font-size:13px; margin-top:14px;"><strong>Skills:</strong> Power BI, SQL, Database Management, Data Analysis, EDI Systems</p>
+</div>
 </div>
 
 <div class="card">
-<h3>Mathematics Tutor — Course Hero</h3>
-<p>Taught statistics and probability with focus on data analysis concepts.</p>
+<div class="experience-item">
+<h3>Mathematics Tutor – Statistics & Probability</h3>
+<p class="experience-meta">Course Hero | Sep 2023 – Feb 2024 · 6 mos</p>
+<p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">India · Remote</p>
+<ul style="margin:12px 0; padding-left:20px; color:var(--text-muted); line-height:1.8;">
+<li>Tutored students in Statistics and Probability, covering topics such as probability distributions, hypothesis testing, and data analysis</li>
+<li>Developed personalized lesson plans and practice exercises to match individual learning needs</li>
+<li>Simplified complex mathematical concepts into clear, step-by-step explanations to improve student understanding and confidence</li>
+<li>Assisted with assignments, exam preparation, and problem-solving strategies</li>
+<li>Monitored student progress and provided constructive feedback to enhance performance</li>
+</ul>
+<p style="font-size:13px; margin-top:14px;"><strong>Skills:</strong> Statistics, Probability, Data Analysis, Tutoring, Mathematics</p>
+</div>
 </div>
 
 </div>
 
 <!-- PROJECTS -->
 <div id="projects" class="section">
-<h2>Projects</h2>
+<h2>Featured Projects</h2>
 
 <div class="project-grid">
 
-<div class="card">
-<h3>OTD Dashboard</h3>
-<p>Operational tracking dashboard built in Power BI.</p>
-<a class="btn">View Project</a>
+<div class="card project-card">
+<h3>End-to-End Power BI Dashboard Development</h3>
+<p>Built comprehensive dashboards from scratch with data ingestion from multiple API sources. Implemented advanced statistical analysis and KPI calculations to create meaningful, actionable visualizations. Designed interactive reports with drill-down capabilities, dynamic filtering, and real-time data refresh pipelines for stakeholder decision-making.</p>
+<div class="project-tech">
+<span>Power BI</span>
+<span>DAX</span>
+<span>APIs</span>
+<span>Statistical Analysis</span>
+<span>Data Modeling</span>
+</div>
+<a class="btn">View Project →</a>
 </div>
 
-<div class="card">
-<h3>Production Data Analysis</h3>
-<p>Analyzed manufacturing datasets to uncover performance trends.</p>
-<a class="btn">View Project</a>
+<div class="card project-card">
+<h3>End-to-End Machine Learning Pipeline (MLOps)</h3>
+<p>Designed and deployed a complete machine learning system on Google Cloud Platform. Implemented data ingestion, preprocessing, model training with Vertex AI, and containerized services using Docker. Built FastAPI backend for model serving and Streamlit frontend for user interaction, deployed on GCP with full CI/CD integration.</p>
+<div class="project-tech">
+<span>GCP</span>
+<span>Vertex AI</span>
+<span>Docker</span>
+<span>FastAPI</span>
+<span>Streamlit</span>
+<span>MLOps</span>
+</div>
+<a class="btn" href="https://github.com/Fabius-Naumann/02476_ML-OPS_project.git" target="_blank">View Project →</a>
 </div>
 
-<div class="card">
-<h3>Data Pipeline Project</h3>
-<p>Designed workflows for reliable data processing.</p>
-<a class="btn">View Project</a>
+<div class="card project-card">
+<h3>Data Pipeline Architecture</h3>
+<p>Designed and implemented automated ETL workflows for multi-source data consolidation. Improved data processing efficiency by 40% with optimized pipeline logic.</p>
+<div class="project-tech">
+<span>SQL</span>
+<span>Python</span>
+<span>Data Engineering</span>
+</div>
+<a class="btn">View Project →</a>
 </div>
 
 </div>
@@ -299,12 +543,31 @@ I'm currently pursuing a Master's degree in Computer Science at DTU, where I wor
 
 <!-- CONTACT -->
 <div id="contact" class="section">
-<h2>Contact</h2>
+<h2>Get In Touch</h2>
 <div class="card">
-<p>Email: sharanyalka21@gmail.com</p>
+<p style="margin-bottom:24px; font-size:15px;">I'm open to discussing data engineering opportunities, analytics projects, or collaborations. Feel free to reach out.</p>
+
+<div class="contact-item">
+<div class="contact-icon">✉️</div>
+<div class="contact-info">
+<p style="margin:0; font-size:13px; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:0.5px;">Email</p>
+<a href="mailto:yalkasharan@gmail.com">yalkasharan@gmail.com</a>
+</div>
+</div>
+
+<div class="contact-item">
+<div class="contact-icon">📱</div>
+<div class="contact-info">
+<p style="margin:0; font-size:13px; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:0.5px;">Phone</p>
+<p style="margin:0;"><a href="tel:+45 71423850">+45 71 42 38 50</a></p>
+</div>
+</div>
+
+<div style="margin-top:28px; padding-top:24px; border-top:1px solid var(--border);">
 <a class="btn" href="https://www.linkedin.com/in/sharanyalka" target="_blank">
-LinkedIn Profile
+Visit LinkedIn Profile
 </a>
+</div>
 </div>
 </div>
 
