@@ -7,12 +7,27 @@
 
 <style>
 
+/* ===== COLOR SYSTEM ===== */
+:root{
+    --bg-main:#f9fafb;
+    --bg-card:#ffffff;
+    --bg-sidebar:#ffffff;
+
+    --primary:#2563eb;
+    --primary-soft:#eff6ff;
+
+    --text-main:#0f172a;
+    --text-muted:#64748b;
+
+    --border:#e5e7eb;
+}
+
 /* ===== GLOBAL ===== */
 body{
     margin:0;
-    font-family:Segoe UI, Arial, sans-serif;
-    background:#f8fafc;     /* soft light background */
-    color:#0f172a;          /* dark readable text */
+    font-family:Segoe UI, system-ui, sans-serif;
+    background:var(--bg-main);
+    color:var(--text-main);
     display:flex;
 }
 
@@ -20,8 +35,8 @@ body{
 .sidebar{
     width:220px;
     height:100vh;
-    background:#ffffff;
-    border-right:1px solid #e2e8f0;
+    background:var(--bg-sidebar);
+    border-right:1px solid var(--border);
     padding-top:30px;
     position:fixed;
 }
@@ -29,99 +44,101 @@ body{
 .sidebar h2{
     text-align:center;
     margin-bottom:40px;
-    color:#1e3a8a;
+    font-weight:600;
 }
 
 .sidebar button{
     width:100%;
-    padding:15px;
+    padding:14px 18px;
     background:none;
     border:none;
-    color:#0F172A;
+    color:var(--text-muted);
     text-align:left;
-    font-size:16px;
+    font-size:15px;
     cursor:pointer;
-    transition:0.25s;
+    transition:0.2s;
 }
 
 .sidebar button:hover{
-    background:#F0F4F8;
-    color:#2563EB;
+    background:#f1f5f9;
+    color:var(--primary);
 }
 
 .sidebar button.active{
-    background:#EBF2FF;
-    color:#2563EB;
-    border-left:4px solid #1E3A8A;
+    background:var(--primary-soft);
+    color:var(--primary);
+    border-left:3px solid var(--primary);
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== MAIN ===== */
 .main{
     margin-left:220px;
-    padding:40px;
-    width:100%;
+    padding:50px;
+    max-width:900px;
 }
 
-.section{
-    display:none;
-    animation:fade 0.4s ease;
+h1{
+    margin-bottom:5px;
+    font-size:32px;
 }
 
-@keyframes fade{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
+h2{
+    margin-top:40px;
+    font-size:22px;
+}
+
+p{
+    color:var(--text-muted);
+    line-height:1.6;
 }
 
 /* ===== CARDS ===== */
 .card{
-    background:#ffffff;
-    border:1px solid #e2e8f0;
-    border-radius:12px;
-    padding:22px;
-    margin-top:20px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.04);
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:24px;
+    margin-top:18px;
 }
 
-.card:hover{
-    transform:translateY(-3px);
-    transition:0.2s;
-}
-
-/* ===== TAGS ===== */
+/* ===== SKILLS ===== */
 .tags span{
     background:#f1f5f9;
     padding:6px 12px;
     border-radius:6px;
-    margin:5px;
+    margin:6px 6px 0 0;
     display:inline-block;
-    font-size:14px;
+    font-size:13px;
 }
 
 /* ===== PROJECT GRID ===== */
 .project-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
+    grid-template-columns:1fr;
+    gap:18px;
 }
 
 /* ===== BUTTON ===== */
 .btn{
-    background:#1E3A8A;
+    background:var(--primary);
     color:white;
-    padding:8px 14px;
+    padding:7px 14px;
     border-radius:6px;
     text-decoration:none;
+    font-size:14px;
     display:inline-block;
     margin-top:10px;
-    font-weight:600;
 }
 
 .btn:hover{
-    background:#2563EB;
+    opacity:0.9;
+}
+
+.section{
+    display:none;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -135,14 +152,14 @@ body{
 <button class="navBtn" onclick="showSection('experience',this)">Experience</button>
 <button class="navBtn" onclick="showSection('projects',this)">Projects</button>
 <button class="navBtn" onclick="showSection('contact',this)">Contact</button>
-
 </div>
 
-<!-- ===== MAIN ===== -->
+<!-- ===== MAIN CONTENT ===== -->
 <div class="main">
 
 <h1>Sharan Yalka</h1>
-<p>Data Engineer | Data Analytics | Power BI Developer</p>
+<p><strong>Data Engineer · Data Analytics · Power BI Developer</strong></p>
+<p>Building reliable data systems that turn complex datasets into clear business decisions.</p>
 
 <!-- ABOUT -->
 <div id="about" class="section">
@@ -150,7 +167,8 @@ body{
 <div class="card">
 <p>
 MSc Computer Science student at DTU working with Python, SQL, Power BI,
-and data engineering workflows to turn complex data into decisions.
+and data engineering workflows. I enjoy transforming complex datasets
+into practical insights that support better decision making.
 </p>
 </div>
 </div>
@@ -166,6 +184,7 @@ and data engineering workflows to turn complex data into decisions.
 <span>Excel</span>
 <span>Data Engineering</span>
 <span>Analytics</span>
+<span>Mathematics</span>
 </div>
 </div>
 
@@ -175,17 +194,17 @@ and data engineering workflows to turn complex data into decisions.
 
 <div class="card">
 <h3>Student Analyst — Phillips Medisize</h3>
-<p>Cost estimation analytics and decision support.</p>
+<p>Cost estimation and analytics supporting data-driven decisions.</p>
 </div>
 
 <div class="card">
 <h3>EDI Analyst — Kintetsu World Express</h3>
-<p>SQL validation, dashboards, and secure integrations.</p>
+<p>SQL validation, Power BI dashboards, and secure B2B data exchange.</p>
 </div>
 
 <div class="card">
 <h3>Mathematics Tutor — Course Hero</h3>
-<p>Taught statistics and probability.</p>
+<p>Taught statistics and probability with focus on data analysis concepts.</p>
 </div>
 
 </div>
@@ -198,19 +217,19 @@ and data engineering workflows to turn complex data into decisions.
 
 <div class="card">
 <h3>OTD Dashboard</h3>
-<p>Operational tracking dashboard in Power BI.</p>
+<p>Operational tracking dashboard built in Power BI.</p>
 <a class="btn">View Project</a>
 </div>
 
 <div class="card">
 <h3>Production Data Analysis</h3>
-<p>Manufacturing analytics project.</p>
+<p>Analyzed manufacturing datasets to uncover performance trends.</p>
 <a class="btn">View Project</a>
 </div>
 
 <div class="card">
 <h3>Data Pipeline Project</h3>
-<p>Designed reliable data workflows.</p>
+<p>Designed workflows for reliable data processing.</p>
 <a class="btn">View Project</a>
 </div>
 
@@ -235,22 +254,19 @@ LinkedIn Profile
 /* ===== SECTION SWITCHING ===== */
 function showSection(id,btn){
 
-    // hide all sections
     document.querySelectorAll('.section').forEach(sec=>{
         sec.style.display='none';
     });
 
-    // remove active state
     document.querySelectorAll('.navBtn').forEach(b=>{
         b.classList.remove('active');
     });
 
-    // show selected
     document.getElementById(id).style.display='block';
     btn.classList.add('active');
 }
 
-// default open
+// default section
 document.getElementById('about').style.display='block';
 
 </script>
