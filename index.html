@@ -61,6 +61,23 @@ body{
     cursor:pointer;
     transition:all 0.2s ease;
     font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.sidebar-icon{
+    font-size:20px;
+    width:24px;
+    height:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.sidebar button:hover .sidebar-icon{
+    transform:scale(1.1);
 }
 
 .sidebar button:hover{
@@ -349,11 +366,11 @@ p{
 <div class="sidebar">
 <h2>Portfolio</h2>
 
-<button class="navBtn active" onclick="showSection('about',this)">About</button>
-<button class="navBtn" onclick="showSection('skills',this)">Skills</button>
-<button class="navBtn" onclick="showSection('experience',this)">Experience</button>
-<button class="navBtn" onclick="showSection('projects',this)">Projects</button>
-<button class="navBtn" onclick="showSection('contact',this)">Contact</button>
+<button class="navBtn active" onclick="showSection('about',this)"><span class="sidebar-icon">👤</span>About</button>
+<button class="navBtn" onclick="showSection('skills',this)"><span class="sidebar-icon">⚙️</span>Skills</button>
+<button class="navBtn" onclick="showSection('experience',this)"><span class="sidebar-icon">🎯</span>Experience</button>
+<button class="navBtn" onclick="showSection('projects',this)"><span class="sidebar-icon">🚀</span>Projects</button>
+<button class="navBtn" onclick="showSection('contact',this)"><span class="sidebar-icon">📧</span>Contact</button>
 </div>
 
 <!-- ===== MAIN CONTENT ===== -->
@@ -403,7 +420,7 @@ I'm currently pursuing a Master's degree in Computer Science at DTU, where I wor
 
 <!-- SKILLS -->
 <div id="skills" class="section">
-<h2>Technical Skills</h2>
+<h2>💻 Technical Skills</h2>
 <div class="card">
 
 <div class="skills-category">
