@@ -11,8 +11,8 @@
 body{
     margin:0;
     font-family:Segoe UI, Arial, sans-serif;
-    background:#020617;
-    color:#e2e8f0;
+    background:#f8fafc;     /* soft light background */
+    color:#0f172a;          /* dark readable text */
     display:flex;
 }
 
@@ -20,8 +20,8 @@ body{
 .sidebar{
     width:220px;
     height:100vh;
-    background:#020617;
-    border-right:1px solid #1e293b;
+    background:#ffffff;
+    border-right:1px solid #e2e8f0;
     padding-top:30px;
     position:fixed;
 }
@@ -29,6 +29,7 @@ body{
 .sidebar h2{
     text-align:center;
     margin-bottom:40px;
+    color:#1e3a8a;
 }
 
 .sidebar button{
@@ -36,22 +37,22 @@ body{
     padding:15px;
     background:none;
     border:none;
-    color:#94a3b8;
+    color:#475569;
     text-align:left;
     font-size:16px;
     cursor:pointer;
-    transition:0.3s;
+    transition:0.25s;
 }
 
 .sidebar button:hover{
-    background:#0f172a;
-    color:#38bdf8;
+    background:#f1f5f9;
+    color:#2563eb;
 }
 
 .sidebar button.active{
-    background:#0f172a;
-    color:#38bdf8;
-    border-left:3px solid #38bdf8;
+    background:#eff6ff;
+    color:#2563eb;
+    border-left:4px solid #2563eb;
 }
 
 /* ===== MAIN CONTENT ===== */
@@ -73,39 +74,54 @@ body{
 
 /* ===== CARDS ===== */
 .card{
-    background:#020617;
-    border:1px solid #1e293b;
-    border-radius:14px;
-    padding:20px;
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:22px;
     margin-top:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.04);
 }
 
+.card:hover{
+    transform:translateY(-3px);
+    transition:0.2s;
+}
+
+/* ===== TAGS ===== */
 .tags span{
-    background:#1e293b;
+    background:#f1f5f9;
     padding:6px 12px;
     border-radius:6px;
     margin:5px;
     display:inline-block;
+    font-size:14px;
 }
 
+/* ===== PROJECT GRID ===== */
 .project-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:20px;
 }
 
+/* ===== BUTTON ===== */
 .btn{
-    background:#38bdf8;
-    color:#020617;
+    background:#2563eb;
+    color:white;
     padding:8px 14px;
     border-radius:6px;
     text-decoration:none;
     display:inline-block;
     margin-top:10px;
-    font-weight:bold;
+    font-weight:600;
+}
+
+.btn:hover{
+    background:#1d4ed8;
 }
 
 </style>
+
 </head>
 
 <body>
