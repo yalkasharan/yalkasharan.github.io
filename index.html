@@ -2,146 +2,182 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sharan Yalka | Data Engineer Portfolio</title>
+<title>Sharan Yalka | Data Engineer</title>
 
 <style>
-body {
+body{
     font-family: Arial, Helvetica, sans-serif;
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    line-height: 1.6;
-    background-color: #f9fafb;
-    color: #222;
+    margin:0;
+    background:#f1f5f9;
+    color:#0f172a;
 }
 
-h1 { font-size: 32px; margin-bottom: 5px; }
-h2 { margin-top: 40px; color: #0f172a; }
-
-.card {
-    background: white;
-    padding: 18px;
-    margin-top: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
 }
 
-a {
-    color: #2563eb;
-    text-decoration: none;
+nav{
+    background:white;
+    padding:15px 0;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    position:sticky;
+    top:0;
 }
 
-.tag {
-    display: inline-block;
-    background: #e2e8f0;
-    padding: 6px 10px;
-    margin: 4px;
-    border-radius: 6px;
-    font-size: 14px;
+nav a{
+    margin-right:20px;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:bold;
+}
+
+h1{
+    font-size:34px;
+    margin-bottom:5px;
+}
+
+.section{
+    margin-top:50px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.tags span{
+    background:#e2e8f0;
+    padding:6px 10px;
+    margin:4px;
+    border-radius:6px;
+    display:inline-block;
+    font-size:14px;
+}
+
+.project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+footer{
+    margin-top:60px;
+    padding:30px 0;
+    text-align:center;
+    font-size:14px;
+    color:#64748b;
 }
 </style>
 </head>
 
 <body>
 
+<nav>
+<div class="container">
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<div class="container">
+
 <h1>Sharan Yalka</h1>
 <p><strong>Data Engineer | Data Analytics | Power BI Developer</strong></p>
-<p>Copenhagen Metropolitan Area</p>
+<p>Turning data into decisions.</p>
 
-<p>
-Motivated by building reliable data systems that help organizations make
-better decisions. I enjoy turning complex datasets into clear insights
-through analytics, dashboards, and efficient data workflows.
-</p>
-
+<div id="about" class="section">
 <h2>About Me</h2>
 <div class="card">
 <p>
-I’m currently pursuing an MSc in Computer Science at DTU while working as
-a Student Analyst at Phillips Medisize. My focus is on data engineering,
-analytics, and building solutions that align with real business needs.
-</p>
-
-<p>
-I work with Python, SQL, Power BI, and Excel, and I care deeply about
-data quality, security, and practical impact.
+I’m a Computer Science MSc student at DTU working in data engineering and analytics.
+I build dashboards, design data workflows, and turn complex datasets into practical
+business insights using Python, SQL, Power BI, and Excel.
 </p>
 </div>
+</div>
 
+<div id="skills" class="section">
 <h2>Skills</h2>
-<div class="card">
-<span class="tag">Data Analytics</span>
-<span class="tag">Power BI</span>
-<span class="tag">DAX</span>
-<span class="tag">SQL</span>
-<span class="tag">Python</span>
-<span class="tag">Excel</span>
-<span class="tag">Data Engineering</span>
-<span class="tag">Mathematics</span>
+<div class="card tags">
+<span>Data Analytics</span>
+<span>Power BI</span>
+<span>DAX</span>
+<span>SQL</span>
+<span>Python</span>
+<span>Excel</span>
+<span>Data Engineering</span>
+<span>Mathematics</span>
+</div>
 </div>
 
+<div id="experience" class="section">
 <h2>Experience</h2>
 
 <div class="card">
 <h3>Student Analyst — Phillips Medisize</h3>
-<p><em>Aug 2025 – Present | Copenhagen</em></p>
-<ul>
-<li>Cost estimation and analytics</li>
-<li>Supporting data-driven decision making</li>
-</ul>
+<p>Cost estimation and analytics supporting data-driven decisions.</p>
 </div>
 
 <div class="card">
 <h3>EDI Analyst — Kintetsu World Express</h3>
-<p><em>Feb 2024 – Jan 2025</em></p>
-<ul>
-<li>Supported EDI/B2B systems and secure data exchange</li>
-<li>Used SQL for validation, reporting, and issue resolution</li>
-<li>Built Power BI dashboards delivering actionable insights</li>
-<li>Worked with Jira, Confluence, webMethods, and Axway</li>
-</ul>
+<p>SQL validation, Power BI dashboards, and secure B2B data exchange.</p>
 </div>
 
 <div class="card">
 <h3>Mathematics Tutor — Course Hero</h3>
-<p><em>Sep 2023 – Feb 2024</em></p>
-<ul>
-<li>Taught statistics and probability</li>
-<li>Simplified complex mathematical concepts</li>
-<li>Supported students with data analysis topics</li>
-</ul>
+<p>Taught statistics and probability with a focus on data analysis concepts.</p>
 </div>
 
-<h2>Education</h2>
-<div class="card">
-<p><strong>DTU – Technical University of Denmark</strong><br>
-MSc Computer Science</p>
-
-<p><strong>JNTUH</strong><br>
-B.Tech Computer Science and Engineering</p>
 </div>
 
+<div id="projects" class="section">
 <h2>Projects</h2>
-<div class="card">
-<p>👉 Add your Power BI dashboards, data engineering projects,
-and analytics work here.</p>
 
-<ul>
-<li>OTD Dashboard (Power BI)</li>
-<li>Production Data Analysis</li>
-<li>Data Pipeline Project</li>
-</ul>
+<div class="project-grid">
+
+<div class="card">
+<h3>OTD Dashboard</h3>
+<p>Power BI dashboard tracking operational performance.</p>
 </div>
 
+<div class="card">
+<h3>Production Data Analysis</h3>
+<p>Analyzed manufacturing datasets to uncover trends.</p>
+</div>
+
+<div class="card">
+<h3>Data Pipeline Project</h3>
+<p>Designed workflows for reliable data processing.</p>
+</div>
+
+</div>
+</div>
+
+<div id="contact" class="section">
 <h2>Contact</h2>
 <div class="card">
 <p>Email: sharanyalka21@gmail.com</p>
-<p>LinkedIn:
+<p>
+LinkedIn:
 <a href="https://www.linkedin.com/in/sharanyalka" target="_blank">
 linkedin.com/in/sharanyalka
 </a>
 </p>
 </div>
+</div>
 
+<footer>
+<p>© 2026 Sharan Yalka</p>
+</footer>
+
+</div>
 </body>
 </html>
