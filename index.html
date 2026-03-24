@@ -1,616 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sharan Yalka | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Great Crime Shift | San Francisco 2020</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
+        body {
+            font-family: 'Source Serif Pro', Georgia, serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
 
-/* ===== COLOR SYSTEM ===== */
-:root{
-    --bg-main:#f9fafb;
-    --bg-card:#ffffff;
-    --bg-sidebar:#ffffff;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
 
-    --primary:#2563eb;
-    --primary-soft:#eff6ff;
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 3rem;
+        }
 
-    --text-main:#0f172a;
-    --text-muted:#64748b;
+        .kicker {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #D62728;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
 
-    --border:#e5e7eb;
-}
+        h1 {
+            font-family: 'Source Serif Pro', Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
 
-/* ===== GLOBAL ===== */
-body{
-    margin:0;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background:var(--bg-main);
-    color:var(--text-main);
-    display:flex;
-}
+        .subtitle {
+            font-size: 1.3rem;
+            color: #555;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-/* ===== SIDEBAR ===== */
-.sidebar{
-    width:220px;
-    height:100vh;
-    background:var(--bg-sidebar);
-    border-right:1px solid var(--border);
-    padding-top:40px;
-    position:fixed;
-    overflow-y:auto;
-}
+        /* Sections */
+        section {
+            margin-bottom: 3.5rem;
+        }
 
-.sidebar h2{
-    text-align:center;
-    margin-bottom:50px;
-    font-weight:700;
-    font-size:18px;
-    letter-spacing:-0.5px;
-}
+        h2 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #333;
+        }
 
-.sidebar button{
-    width:100%;
-    padding:14px 18px;
-    background:none;
-    border:none;
-    color:var(--text-muted);
-    text-align:left;
-    font-size:15px;
-    cursor:pointer;
-    transition:all 0.2s ease;
-    font-weight:500;
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
 
-.sidebar-icon{
-    font-size:20px;
-    width:24px;
-    height:24px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-}
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #333;
+        }
 
-.sidebar button:hover .sidebar-icon{
-    transform:scale(1.1);
-}
+        /* Visualizations */
+        .viz-container {
+            margin: 2.5rem 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
 
-.sidebar button:hover{
-    background:linear-gradient(90deg, #f0f4f8 0%, #e8f1ff 100%);
-    color:var(--primary);
-}
+        .viz-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-.sidebar button.active{
-    background:linear-gradient(90deg, #f0f4f8 0%, #e8f1ff 100%);
-    color:var(--primary);
-    border-left:3px solid var(--primary);
-    font-weight:600;
-}
+        .viz-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
 
-/* ===== MAIN ===== */
-.main{
-    margin-left:220px;
-    padding:60px 50px;
-    max-width:950px;
-}
+        .caption {
+            padding: 1.2rem 1.5rem;
+            background: #f5f5f5;
+            border-top: 1px solid #e8e8e8;
+        }
 
-.hero{
-    margin-bottom:50px;
-}
+        .caption-label {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
 
-h1{
-    margin:0 0 8px 0;
-    font-size:40px;
-    font-weight:700;
-    letter-spacing:-0.5px;
-}
+        .caption p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 0;
+            text-align: left;
+        }
 
-.tagline{
-    font-size:18px;
-    color:var(--primary);
-    font-weight:600;
-    margin:0 0 16px 0;
-}
+        /* Pull quote */
+        .pullquote {
+            font-size: 1.6rem;
+            font-style: italic;
+            color: #D62728;
+            text-align: center;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-left: 4px solid #D62728;
+            background: linear-gradient(to right, rgba(214,39,40,0.05), transparent);
+        }
 
-.intro{
-    font-size:15px;
-    line-height:1.7;
-    color:var(--text-muted);
-    max-width:700px;
-}
+        /* Data box */
+        .data-box {
+            background: #f0f4f8;
+            border-left: 4px solid #1F77B4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
 
-h2{
-    margin-top:50px;
-    margin-bottom:24px;
-    font-size:24px;
-    font-weight:700;
-    color:var(--text-main);
-}
+        .data-box h3 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1F77B4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
 
-h3{
-    font-size:16px;
-    font-weight:600;
-    margin:0 0 8px 0;
-}
+        .data-box p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            text-align: left;
+        }
 
-p{
-    color:var(--text-muted);
-    line-height:1.6;
-    margin:0 0 12px 0;
-}
+        /* Limitations */
+        .limitations {
+            background: #fff8e6;
+            border: 1px solid #ffd966;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
 
-/* ===== CARDS ===== */
-.card{
-    background:var(--bg-card);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:28px;
-    margin-top:18px;
-    box-shadow:0 1px 3px rgba(0,0,0,0.05);
-    transition:all 0.3s ease;
-}
+        .limitations h3 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 1rem;
+        }
 
-.card:hover{
-    border-color:#d1d5db;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    transform:translateY(-2px);
-}
+        .limitations ul {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.95rem;
+            color: #664d03;
+            margin-left: 1.5rem;
+        }
 
-/* ===== SKILLS ===== */
-.skills-category{
-    margin-bottom:28px;
-}
+        .limitations li {
+            margin-bottom: 0.5rem;
+        }
 
-.skills-category h4{
-    font-size:13px;
-    font-weight:700;
-    color:var(--text-main);
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin:0 0 12px 0;
-    opacity:0.7;
-}
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9rem;
+            color: #666;
+        }
 
-.tags span{
-    background:linear-gradient(135deg, #f0f4f8 0%, #e8f1ff 100%);
-    color:var(--primary);
-    padding:8px 14px;
-    border-radius:8px;
-    margin:6px 8px 6px 0;
-    display:inline-block;
-    font-size:14px;
-    font-weight:500;
-    border:1px solid #d1dff4;
-    transition:all 0.2s ease;
-}
+        footer p {
+            text-align: left;
+            font-size: 0.9rem;
+        }
 
-.tags span:hover{
-    background:linear-gradient(135deg, #e8f1ff 0%, #e0ecff 100%);
-    border-color:#2563eb;
-}
-
-/* ===== EXPERIENCE ===== */
-.experience-item{
-    display:block;
-}
-
-.experience-item h3{
-    font-size:17px;
-    font-weight:700;
-    margin:0 0 6px 0;
-    color:var(--text-main);
-}
-
-.experience-meta{
-    font-size:13px;
-    color:var(--primary);
-    font-weight:600;
-    margin-bottom:10px;
-}
-
-.experience-item p{
-    color:var(--text-muted);
-    font-size:15px;
-    line-height:1.6;
-}
-.project-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
-}
-
-.project-card{
-    border-left:4px solid var(--primary);
-    transition:all 0.3s ease;
-}
-
-.project-card:hover{
-    border-left-color:#1e3a8a;
-}
-
-.project-tech{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-    margin-top:12px;
-}
-
-.project-tech span{
-    background:#f1f5f9;
-    color:#0f172a;
-    padding:4px 10px;
-    border-radius:4px;
-    font-size:12px;
-    font-weight:500;
-}
-
-/* ===== EDUCATION ===== */
-.education-item{
-    display:flex;
-    gap:18px;
-    margin-top:20px;
-    padding:18px;
-    border-radius:10px;
-    background:linear-gradient(135deg, #f9fafb 0%, #f0f4f8 100%);
-    transition:all 0.3s ease;
-}
-
-.education-item:hover{
-    background:linear-gradient(135deg, #f0f4f8 0%, #e8f1ff 100%);
-}
-
-.education-item:last-child{
-    margin-bottom:0;
-}
-
-.education-icon{
-    width:60px;
-    height:60px;
-    border-radius:10px;
-    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-    font-size:15px;
-    flex-shrink:0;
-    box-shadow:0 2px 8px rgba(37, 99, 235, 0.15);
-}
-
-.education-content h3{
-    margin:0 0 6px 0;
-    font-size:16px;
-    font-weight:700;
-    color:var(--text-main);
-}
-
-.education-content p{
-    margin:4px 0;
-    font-size:14px;
-}
-
-/* ===== BUTTON ===== */
-.btn{
-    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-    color:white;
-    padding:10px 20px;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:14px;
-    font-weight:600;
-    display:inline-block;
-    margin-top:12px;
-    border:none;
-    cursor:pointer;
-    transition:all 0.3s ease;
-    box-shadow:0 2px 8px rgba(37, 99, 235, 0.2);
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 4px 14px rgba(37, 99, 235, 0.35);
-    background:linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-}
-
-/* ===== CONTACT ===== */
-.contact-item{
-    display:flex;
-    gap:16px;
-    align-items:flex-start;
-    margin-top:18px;
-    padding:14px;
-}
-
-.contact-icon{
-    width:44px;
-    height:44px;
-    border-radius:10px;
-    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    flex-shrink:0;
-    box-shadow:0 2px 8px rgba(37, 99, 235, 0.15);
-}
-
-.contact-info a{
-    color:var(--primary);
-    text-decoration:none;
-    font-weight:600;
-    transition:all 0.2s ease;
-}
-
-.contact-info a:hover{
-    color:#1e3a8a;
-    text-decoration:underline;
-}
-
-.section{
-    display:none;
-}
-
-</style>
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .pullquote { font-size: 1.3rem; }
+            .viz-container iframe { height: 400px; }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <header>
+            <p class="kicker">San Francisco Crime Data</p>
+            <h1>The Great Crime Shift</h1>
+            <p class="subtitle">How empty streets changed what got stolen in San Francisco during COVID-19</p>
+        </header>
 
-<!-- ===== SIDEBAR ===== -->
-<div class="sidebar">
-<h2>Portfolio</h2>
+        <section>
+            <p class="lead">
+                In March 2020, San Francisco's streets emptied overnight. Within weeks, foot traffic in the Financial District dropped 90%. BART ridership collapsed. The city that never sleeps went quiet.
+            </p>
+            <p>
+                Crime statistics from that period show something counterintuitive: total reported crime dropped, but certain categories exploded. The pandemic didn't stop opportunistic criminals—it just changed their targets. And some of those changes have proven remarkably persistent.
+            </p>
+        </section>
 
-<button class="navBtn active" onclick="showSection('about',this)"><span class="sidebar-icon">👤</span>About</button>
-<button class="navBtn" onclick="showSection('skills',this)"><span class="sidebar-icon">⚙️</span>Skills</button>
-<button class="navBtn" onclick="showSection('experience',this)"><span class="sidebar-icon">🎯</span>Experience</button>
-<button class="navBtn" onclick="showSection('projects',this)"><span class="sidebar-icon">🚀</span>Projects</button>
-<button class="navBtn" onclick="showSection('contact',this)"><span class="sidebar-icon">📧</span>Contact</button>
-</div>
+        <div class="data-box">
+            <h3>About the Data</h3>
+            <p>
+                This analysis uses 1,048,575 incident reports from the San Francisco Police Department, spanning 2003 to 2025. The dataset merges two SFPD reporting systems—historical records (2003-2018) and the current system (2018-present)—unified into consistent crime categories. I focus primarily on 2019-2023 to isolate pandemic effects from longer-term trends.
+            </p>
+        </div>
 
-<!-- ===== MAIN CONTENT ===== -->
-<div class="main">
+        <section>
+            <h2>The Inversion</h2>
+            <p>
+                The first year of the pandemic created a near-perfect natural experiment. With shelter-in-place orders in effect, San Francisco saw two distinct patterns emerge: crimes that require victim proximity—robbery, assault, pickpocketing—plummeted. But crimes targeting unattended property surged.
+            </p>
+            <p>
+                Burglaries jumped 55%. Vehicle theft rose 39%. At the same time, larceny (which includes shoplifting) fell 37%, and robberies dropped 26%. The pattern is clear: remove people from the equation, and you remove both witnesses and certain types of targets.
+            </p>
+        </section>
 
-<div class="hero">
-<h1>Sharan Yalka</h1>
-<p class="tagline">Data Engineer · Data Analytics · Power BI Developer</p>
-<p class="intro">Building reliable, scalable data systems that empower organizations to make better decisions. I specialize in designing efficient data pipelines, building analytical solutions, and transforming complex datasets into actionable insights.</p>
-</div>
+        <div class="viz-container">
+            <img src="viz1_crime_divergence.png" alt="Diverging bar chart showing COVID crime changes">
+            <div class="caption">
+                <p class="caption-label">Figure 1</p>
+                <p>
+                    <strong>The pandemic inverted San Francisco's crime profile.</strong> Crimes requiring victim proximity—robbery, assault, larceny—fell 20-35% as people stayed home. But property crimes targeting unattended vehicles and buildings surged, with burglaries up 55%. Empty streets don't mean safety; they just shift who becomes a target.
+                </p>
+            </div>
+        </div>
 
-<!-- ABOUT -->
-<div id="about" class="section">
-<h2>About Me</h2>
-<div class="card">
-<p>
-I'm motivated by the idea that well-designed, data-driven systems can help people and organizations make better decisions. That's what drives my interest in data engineering and data analysis, and in building reliable pipelines and insights that actually get used.
-</p>
-<p>
-I enjoy working with complex data problems and turning them into clear, practical outcomes. That might mean designing efficient data workflows, analyzing large datasets to uncover patterns, or building dashboards that communicate insights in a way decision-makers can trust and understand.
-</p>
-<p>
-I'm currently pursuing a Master's degree in Computer Science at DTU, where I work hands-on with Python, SQL, Power BI, Excel, and related data technologies. Alongside the technical side, I care about data quality, security, and how data solutions align with real business needs. I'm curious, detail-oriented, and always looking to deepen my skills while contributing meaningful, data-driven value.
-</p>
+        <section>
+            <h2>The Geographic Flip</h2>
+            <p>
+                The crime shift wasn't just categorical—it was spatial. With commuters gone, downtown San Francisco saw vehicle theft actually <em>decrease</em>. The Central district, home to the Financial District and Union Square, recorded 3.4% fewer car thefts in 2020 than 2019.
+            </p>
+            <p>
+                But the outer residential neighborhoods told a different story. Ingleside, a residential district in the city's south, saw an 83% surge in vehicle theft. Northern district jumped 51%. These areas weren't empty—people were home, working remotely. But their cars sat unattended on residential streets, sometimes for days at a time.
+            </p>
+        </section>
 
-<h3 style="margin-top:40px; margin-bottom:20px; font-size:18px; font-weight:700;">Education</h3>
+        <div class="pullquote">
+            "The pandemic didn't reduce crime—it relocated it."
+        </div>
 
-<div class="education-item">
-<div class="education-icon">DTU</div>
-<div class="education-content">
-<h3>DTU - Technical University of Denmark</h3>
-<p><strong>Master's degree, Computer Science</strong></p>
-<p style="color:var(--text-muted); font-size:14px;">Jan 2025 – Present</p>
-</div>
-</div>
+        <div class="viz-container">
+            <iframe src="viz2_vehicle_theft_map.html" title="Vehicle theft map"></iframe>
+            <div class="caption">
+                <p class="caption-label">Figure 2</p>
+                <p>
+                    <strong>Vehicle theft didn't just increase—it moved.</strong> Downtown (Central district) actually saw a 3% drop as commuters vanished, leaving no cars to steal. Meanwhile, Ingleside saw an 83% surge as residential cars sat unattended while owners worked from home. Click each district for details.
+                </p>
+            </div>
+        </div>
 
-<div class="education-item">
-<div class="education-icon">JNT</div>
-<div class="education-content">
-<h3>Jawaharlal Nehru Technological University Hyderabad (JNTUH)</h3>
-<p><strong>Bachelor of Technology, Computer Science and Engineering</strong></p>
-<p style="color:var(--text-muted); font-size:14px;">Aug 2019 – Aug 2023</p>
-</div>
-</div>
-</div>
-</div>
+        <section>
+            <h2>The New Normal</h2>
+            <p>
+                Perhaps most striking is what happened after the lockdowns lifted. By 2022, most pandemic restrictions were gone. People returned to offices—at least part-time. You might expect crime patterns to revert to their pre-pandemic baseline.
+            </p>
+            <p>
+                They didn't. As of 2023, vehicle theft remained 63% above 2019 levels. Burglary stayed elevated at 116% of baseline. Meanwhile, larceny/theft—once the city's most common crime category by far—has never recovered, sitting at just 54% of 2019 volume even in 2024.
+            </p>
+            <p>
+                The pandemic may have revealed a new equilibrium. Remote and hybrid work persists. Fewer people ride transit. Streets remain quieter than they were in 2019. The conditions that enabled the 2020 surge haven't fully reversed.
+            </p>
+        </section>
 
-<!-- SKILLS -->
-<div id="skills" class="section">
-<h2>💻 Technical Skills</h2>
-<div class="card">
+        <div class="viz-container">
+            <iframe src="viz3_crime_trajectory.html" title="Crime trajectory chart"></iframe>
+            <div class="caption">
+                <p class="caption-label">Figure 3</p>
+                <p>
+                    <strong>Four years later, the shift persists.</strong> Vehicle theft peaked at 163% of 2019 levels in 2023 and remains elevated. Larceny/theft—once dominant—sits at just 54% of pre-pandemic volume. Use the buttons to compare property vs. violent crimes. The pandemic didn't create a temporary spike; it revealed a new equilibrium.
+                </p>
+            </div>
+        </div>
 
-<div class="skills-category">
-<h4>Data Platforms & Tools</h4>
-<div class="tags">
-<span>Power BI</span>
-<span>DAX</span>
-<span>SQL</span>
-<span>Python</span>
-<span>Excel</span>
-</div>
-</div>
+        <section>
+            <h2>What This Data Can't Tell Us</h2>
+            <p>
+                Crime statistics measure <em>reported</em> crime, not actual crime. This distinction matters enormously when interpreting pandemic-era data.
+            </p>
+        </section>
 
-<div class="skills-category">
-<h4>Specializations</h4>
-<div class="tags">
-<span>Data Engineering</span>
-<span>Analytics</span>
-<span>Data Pipelines</span>
-<span>Business Intelligence</span>
-<span>Statistical Analysis</span>
-</div>
-</div>
+        <div class="limitations">
+            <h3>Key Limitations</h3>
+            <ul>
+                <li><strong>Reporting bias:</strong> Fewer people on streets means fewer witnesses and fewer reports filed. The larceny drop may partly reflect underreporting, not just actual decline.</li>
+                <li><strong>Enforcement changes:</strong> SFPD deprioritized some proactive policing during COVID. Categories may show drops because officers weren't looking.</li>
+                <li><strong>Opportunity, not behavior:</strong> Retail stores closed in 2020. Shoplifting dropped because there was nothing to shoplift. This isn't "less crime"—it's "no opportunity."</li>
+                <li><strong>Data system merge:</strong> The dataset combines two SFPD reporting systems at 2018. Category definitions may not align perfectly across the boundary.</li>
+            </ul>
+        </div>
 
-<div class="skills-category">
-<h4>Domains</h4>
-<div class="tags">
-<span>Data Modeling</span>
-<span>ETL/ELT</span>
-<span>Dashboard Design</span>
-<span>Data Quality</span>
-<span>Performance Optimization</span>
-</div>
-</div>
+        <section>
+            <h2>Context: Policy and Place</h2>
+            <p>
+                Two external factors help explain these patterns. First, San Francisco's March 17, 2020 shelter-in-place order—among the first in the nation—provides a clean before/after boundary. The crime divergence aligns precisely with this date.
+            </p>
+            <p>
+                Second, California's Proposition 47 (2014) reclassified thefts under $950 from felonies to misdemeanors. Some argue this reduced reporting incentives for low-value thefts. The larceny trend warrants careful interpretation: are fewer thefts occurring, or are fewer being reported because consequences seem minimal?
+            </p>
+            <p>
+                What the data shows clearly is this: the pandemic was a natural experiment in criminology. Remove crowds, and you remove both witnesses and certain types of targets. Opportunistic crime doesn't disappear—it adapts.
+            </p>
+        </section>
 
-</div>
-</div>
-
-<!-- EXPERIENCE -->
-<div id="experience" class="section">
-<h2>Experience</h2>
-
-<div class="card">
-<div class="experience-item">
-<h3>Student Analyst</h3>
-<p class="experience-meta">Phillips Medisize | Aug 2025 – Present · 7 mos</p>
-<p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">Copenhagen, Capital Region of Denmark, Denmark · On-site</p>
-<ul style="margin:12px 0; padding-left:20px; color:var(--text-muted); line-height:1.8;">
-<li>Performing cost estimation and financial analysis to support strategic business decisions</li>
-<li>Developing and maintaining Power BI dashboards for data visualization and KPI tracking</li>
-<li>Collaborating with cross-functional teams to gather requirements and deliver data-driven insights</li>
-</ul>
-<p style="font-size:13px; margin-top:14px;"><strong>Skills:</strong> Data Analytics, Power BI, SQL, Cost Analysis, Business Intelligence</p>
-</div>
-</div>
-
-<div class="card">
-<div class="experience-item">
-<h3>Electronic Data Interchange Analyst</h3>
-<p class="experience-meta">Kintetsu World Express | Feb 2024 – Jan 2025 · 1 yr</p>
-<p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">Hyderabad, Telangana, India · On-site</p>
-<ul style="margin:12px 0; padding-left:20px; color:var(--text-muted); line-height:1.8;">
-<li>Supported EDI/B2B systems, ensuring secure and accurate data transmission between partners</li>
-<li>Utilized SQL for data validation, issue resolution, and reporting</li>
-<li>Designed and developed Power BI dashboards to track progress and deliver actionable insights</li>
-<li>Managed tickets using Jira/Confluence and collaborated with cross-functional teams and external partners</li>
-<li>Gained hands-on experience with webMethods and Axway platforms for integration and data exchange</li>
-</ul>
-<p style="font-size:13px; margin-top:14px;"><strong>Skills:</strong> Power BI, SQL, Database Management, Data Analysis, EDI Systems</p>
-</div>
-</div>
-
-<div class="card">
-<div class="experience-item">
-<h3>Mathematics Tutor – Statistics & Probability</h3>
-<p class="experience-meta">Course Hero | Sep 2023 – Feb 2024 · 6 mos</p>
-<p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">India · Remote</p>
-<ul style="margin:12px 0; padding-left:20px; color:var(--text-muted); line-height:1.8;">
-<li>Tutored students in Statistics and Probability, covering topics such as probability distributions, hypothesis testing, and data analysis</li>
-<li>Developed personalized lesson plans and practice exercises to match individual learning needs</li>
-<li>Simplified complex mathematical concepts into clear, step-by-step explanations to improve student understanding and confidence</li>
-<li>Assisted with assignments, exam preparation, and problem-solving strategies</li>
-<li>Monitored student progress and provided constructive feedback to enhance performance</li>
-</ul>
-<p style="font-size:13px; margin-top:14px;"><strong>Skills:</strong> Statistics, Probability, Data Analysis, Tutoring, Mathematics</p>
-</div>
-</div>
-
-</div>
-
-<!-- PROJECTS -->
-<div id="projects" class="section">
-<h2>Featured Projects</h2>
-
-<div class="project-grid">
-
-<div class="card project-card">
-<h3>End-to-End Power BI Dashboard Development</h3>
-<p>Built comprehensive dashboards from scratch with data ingestion from multiple API sources. Implemented advanced statistical analysis and KPI calculations to create meaningful, actionable visualizations. Designed interactive reports with drill-down capabilities, dynamic filtering, and real-time data refresh pipelines for stakeholder decision-making.</p>
-<div class="project-tech">
-<span>Power BI</span>
-<span>DAX</span>
-<span>APIs</span>
-<span>Statistical Analysis</span>
-<span>Data Modeling</span>
-</div>
-<a class="btn">View Project →</a>
-</div>
-
-<div class="card project-card">
-<h3>End-to-End Machine Learning Pipeline (MLOps)</h3>
-<p>Designed and deployed a complete machine learning system on Google Cloud Platform. Implemented data ingestion, preprocessing, model training with Vertex AI, and containerized services using Docker. Built FastAPI backend for model serving and Streamlit frontend for user interaction, deployed on GCP with full CI/CD integration.</p>
-<div class="project-tech">
-<span>GCP</span>
-<span>Vertex AI</span>
-<span>Docker</span>
-<span>FastAPI</span>
-<span>Streamlit</span>
-<span>MLOps</span>
-</div>
-<a class="btn" href="https://github.com/Fabius-Naumann/02476_ML-OPS_project.git" target="_blank">View Project →</a>
-</div>
-
-<div class="card project-card">
-<h3>Data Pipeline Architecture</h3>
-<p>Designed and implemented automated ETL workflows for multi-source data consolidation. Improved data processing efficiency by 40% with optimized pipeline logic.</p>
-<div class="project-tech">
-<span>SQL</span>
-<span>Python</span>
-<span>Data Engineering</span>
-</div>
-<a class="btn">View Project →</a>
-</div>
-
-</div>
-</div>
-
-<!-- CONTACT -->
-<div id="contact" class="section">
-<h2>Get In Touch</h2>
-<div class="card">
-<p style="margin-bottom:24px; font-size:15px;">I'm open to discussing data engineering opportunities, analytics projects, or collaborations. Feel free to reach out.</p>
-
-<div class="contact-item">
-<div class="contact-icon">✉️</div>
-<div class="contact-info">
-<p style="margin:0; font-size:13px; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:0.5px;">Email</p>
-<a href="mailto:yalkasharan@gmail.com">yalkasharan@gmail.com</a>
-</div>
-</div>
-
-<div class="contact-item">
-<div class="contact-icon">📱</div>
-<div class="contact-info">
-<p style="margin:0; font-size:13px; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:0.5px;">Phone</p>
-<p style="margin:0;"><a href="tel:+45 71423850">+45 71 42 38 50</a></p>
-</div>
-</div>
-
-<div style="margin-top:28px; padding-top:24px; border-top:1px solid var(--border);">
-<a class="btn" href="https://www.linkedin.com/in/sharanyalka" target="_blank">
-Visit LinkedIn Profile
-</a>
-</div>
-</div>
-</div>
-
-</div>
-
-<script>
-
-/* ===== SECTION SWITCHING ===== */
-function showSection(id,btn){
-
-    document.querySelectorAll('.section').forEach(sec=>{
-        sec.style.display='none';
-    });
-
-    document.querySelectorAll('.navBtn').forEach(b=>{
-        b.classList.remove('active');
-    });
-
-    document.getElementById(id).style.display='block';
-    btn.classList.add('active');
-}
-
-// default section
-document.getElementById('about').style.display='block';
-
-</script>
-
+        <footer>
+            <p><strong>Data Source:</strong> San Francisco Police Department Incident Reports, 2003-2025</p>
+            <p><strong>Analysis:</strong> Social Data Analysis and Visualization Course, 2026</p>
+        </footer>
+    </div>
 </body>
 </html>
