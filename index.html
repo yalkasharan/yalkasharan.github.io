@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="./script.js"></script>
 </head>
 <body>
@@ -178,6 +179,97 @@
       </div>
     </div>
   </div>
+
+  <!-- ══════════════ PIPELINE ANIMATION ══════════════ -->
+  <section id="pipeline" class="section">
+    <div class="section-orb orb-purple" aria-hidden="true"></div>
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-num" aria-hidden="true">00</span>
+        <span class="page-kicker">⟁ Pipeline</span>
+        <h2>From Raw Data to Insight</h2>
+        <p>Watch how a modern data pipeline transforms chaotic, unstructured logs into clean structures and actionable analytics — one stage at a time.</p>
+      </div>
+
+      <div class="dp-track reveal">
+        <div class="dp-node active" id="dp-node-0" data-idx="0">
+          <div class="dp-node-circle"><span class="dp-node-num">01</span></div>
+          <div class="dp-node-label">Raw Logs</div>
+        </div>
+        <div class="dp-connector" id="dp-conn-0"><div class="dp-flow"></div></div>
+        <div class="dp-node" id="dp-node-1" data-idx="1">
+          <div class="dp-node-circle"><span class="dp-node-num">02</span></div>
+          <div class="dp-node-label">Data Cleaning</div>
+        </div>
+        <div class="dp-connector" id="dp-conn-1"><div class="dp-flow"></div></div>
+        <div class="dp-node" id="dp-node-2" data-idx="2">
+          <div class="dp-node-circle"><span class="dp-node-num">03</span></div>
+          <div class="dp-node-label">Structured Storage</div>
+        </div>
+        <div class="dp-connector" id="dp-conn-2"><div class="dp-flow"></div></div>
+        <div class="dp-node" id="dp-node-3" data-idx="3">
+          <div class="dp-node-circle"><span class="dp-node-num">04</span></div>
+          <div class="dp-node-label">Analytics</div>
+        </div>
+      </div>
+
+      <div class="dp-box" id="dp-box">
+        <div class="dp-badge" id="dp-badge">STAGE 01 — RAW LOGS</div>
+        <div class="dp-progress" id="dp-progress"></div>
+
+        <div class="dp-panel active" id="dp-panel-0">
+          <div class="dp-raw-canvas" id="dp-raw-canvas"></div>
+        </div>
+
+        <div class="dp-panel" id="dp-panel-1">
+          <div class="dp-json-blocks">
+            <div class="dp-json-block" id="dp-json-0"></div>
+            <div class="dp-json-block" id="dp-json-1"></div>
+          </div>
+        </div>
+
+        <div class="dp-panel" id="dp-panel-2">
+          <div class="dp-table-wrap">
+            <table class="dp-data-table">
+              <thead>
+                <tr><th>ID</th><th>User</th><th>Revenue</th><th>Date</th><th>Region</th><th>Status</th></tr>
+              </thead>
+              <tbody id="dp-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dp-panel" id="dp-panel-3">
+          <div class="dp-analytics-grid">
+            <div class="dp-kpi-card"><div class="dp-kpi-label">Total Revenue</div><div class="dp-kpi-value" id="dp-kv-0">$0</div><div class="dp-kpi-delta">↑ 18.4% vs last period</div></div>
+            <div class="dp-kpi-card"><div class="dp-kpi-label">Records Processed</div><div class="dp-kpi-value" id="dp-kv-1">0</div><div class="dp-kpi-delta">↑ 99.2% pipeline uptime</div></div>
+            <div class="dp-kpi-card"><div class="dp-kpi-label">Data Quality</div><div class="dp-kpi-value" id="dp-kv-2">0%</div><div class="dp-kpi-delta">↑ 12.1% after cleaning</div></div>
+            <div class="dp-chart-card">
+              <div class="dp-chart-title">Revenue by Region</div>
+              <div class="dp-bar-chart" id="dp-bar-chart"></div>
+            </div>
+            <div class="dp-sparkline-card">
+              <div class="dp-chart-title">Daily Throughput</div>
+              <svg id="dp-sparkline-svg" viewBox="0 0 200 80" preserveAspectRatio="none"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dp-controls">
+        <button class="dp-btn" id="dp-prev" aria-label="Previous stage">←</button>
+        <div class="dp-dots">
+          <button class="dp-dot active" data-idx="0" aria-label="Stage 1"></button>
+          <button class="dp-dot" data-idx="1" aria-label="Stage 2"></button>
+          <button class="dp-dot" data-idx="2" aria-label="Stage 3"></button>
+          <button class="dp-dot" data-idx="3" aria-label="Stage 4"></button>
+        </div>
+        <button class="dp-btn" id="dp-next" aria-label="Next stage">→</button>
+      </div>
+
+    </div>
+  </section>
 
   <!-- ══════════════ SKILLS ══════════════ -->
   <section id="skills" class="section">
@@ -773,6 +865,60 @@
 
   </div>
 </footer>
+
+<script>
+(function(){
+  'use strict';
+  if(typeof gsap==='undefined')return;
+  const DUR=7000;
+  const BADGES=['STAGE 01 — RAW LOGS','STAGE 02 — DATA CLEANING','STAGE 03 — STRUCTURED STORAGE','STAGE 04 — ANALYTICS & INSIGHTS'];
+  const TOKENS=['2024-01-15T08:23:11Z','ERROR: null ref','{"id":??"user','192.168.1.42','GET /api/v2','500 Internal','NaN','undefined','0x4A2F','SELECT * FROM','\\x00\\x1f','WARN: timeout','bytes=4096','user_id=&&&','ts:1705310591','DROP TABLE','{"event":','status: ???',']][[{','pipe|broken','AUTH_FAIL','{}{}{}','<null>','retry #7','lat=??','#REF!','NaN%','overflow','SIGKILL','EOF','bad_json{','corrupt'];
+  const COLORS=['rgba(248,113,113,.75)','rgba(251,146,60,.65)','rgba(255,255,255,.22)','rgba(167,139,250,.55)','rgba(53,208,255,.28)','rgba(255,255,255,.12)'];
+  const ROWS=[{id:'001',user:'Alice Chen',rev:'$2,840',date:'2024-01-15',region:'US-East',ok:true},{id:'002',user:'Bob Müller',rev:'$1,120',date:'2024-01-15',region:'EU-West',ok:true},{id:'003',user:'Riya Patel',rev:'$4,560',date:'2024-01-16',region:'APAC',ok:true},{id:'004',user:'James O.',rev:'$890',date:'2024-01-16',region:'US-West',ok:false},{id:'005',user:'Sofia A.',rev:'$3,270',date:'2024-01-17',region:'EU-East',ok:true},{id:'006',user:'Wei Zhang',rev:'$1,990',date:'2024-01-17',region:'APAC',ok:true},{id:'007',user:'Luca Ferrari',rev:'$640',date:'2024-01-18',region:'EU-West',ok:true},{id:'008',user:'Ana García',rev:'$5,100',date:'2024-01-18',region:'LatAm',ok:true}];
+  const BARS=[{l:'US-East',p:78,c:'linear-gradient(to top,#35d0ff,rgba(53,208,255,.5))'},{l:'EU-West',p:54,c:'linear-gradient(to top,#a78bfa,rgba(167,139,250,.5))'},{l:'APAC',p:91,c:'linear-gradient(to top,#34d399,rgba(52,211,153,.5))'},{l:'US-West',p:43,c:'linear-gradient(to top,#35d0ff,rgba(53,208,255,.5))'},{l:'EU-East',p:62,c:'linear-gradient(to top,#a78bfa,rgba(167,139,250,.5))'},{l:'LatAm',p:38,c:'linear-gradient(to top,#fb923c,rgba(251,146,60,.5))'}];
+  const SPK=[22,35,28,48,40,55,51,68,62,74,70,80];
+
+  let stage=0,rA=[],aA=null,paused=false;
+  const $=id=>document.getElementById(id);
+  const rnd=(a,b)=>Math.random()*(b-a)+a;
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+  function buildBars(){const c=$('dp-bar-chart');c.innerHTML='';BARS.forEach(d=>{const col=document.createElement('div');col.className='dp-bar-col';const w=document.createElement('div');w.className='dp-bar-fill-wrap';const f=document.createElement('div');f.className='dp-bar-fill';f.style.height=(d.p*.75)+'px';f.style.background=d.c;f.style.transform='scaleY(0)';const l=document.createElement('div');l.className='dp-bar-label';l.textContent=d.l;w.appendChild(f);col.appendChild(w);col.appendChild(l);c.appendChild(col);});}
+
+  function buildSpark(){const svg=$('dp-sparkline-svg');svg.innerHTML='';const W=200,H=80,mn=Math.min(...SPK),mx=Math.max(...SPK);const xs=i=>i*W/(SPK.length-1),ys=v=>H-((v-mn)/(mx-mn))*(H-10)-5;const co=SPK.map((v,i)=>[xs(i),ys(v)]);const ld=co.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' ');const ad=ld+` L${co[co.length-1][0]},${H} L0,${H} Z`;const ns='http://www.w3.org/2000/svg';const defs=document.createElementNS(ns,'defs');const gr=document.createElementNS(ns,'linearGradient');gr.setAttribute('id','dp-sg');gr.setAttribute('x1','0');gr.setAttribute('y1','0');gr.setAttribute('x2','0');gr.setAttribute('y2','1');['0%','100%'].forEach((o,i)=>{const s=document.createElementNS(ns,'stop');s.setAttribute('offset',o);s.setAttribute('stop-color','#35d0ff');s.setAttribute('stop-opacity',i?'0':'0.3');gr.appendChild(s);});const fi=document.createElementNS(ns,'filter');fi.setAttribute('id','dp-glow');const fe=document.createElementNS(ns,'feGaussianBlur');fe.setAttribute('stdDeviation','2');fe.setAttribute('result','blur');const fm=document.createElementNS(ns,'feMerge');['blur','SourceGraphic'].forEach(n=>{const mn=document.createElementNS(ns,'feMergeNode');mn.setAttribute('in',n);fm.appendChild(mn);});fi.appendChild(fe);fi.appendChild(fm);defs.appendChild(gr);defs.appendChild(fi);svg.appendChild(defs);const area=document.createElementNS(ns,'path');area.setAttribute('d',ad);area.setAttribute('fill','url(#dp-sg)');area.setAttribute('id','dp-area');area.style.opacity='0';svg.appendChild(area);const line=document.createElementNS(ns,'path');line.setAttribute('d',ld);line.setAttribute('fill','none');line.setAttribute('stroke','#35d0ff');line.setAttribute('stroke-width','2');line.setAttribute('stroke-linecap','round');line.setAttribute('id','dp-line');line.setAttribute('filter','url(#dp-glow)');svg.appendChild(line);const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',co[co.length-1][0]);dot.setAttribute('cy',co[co.length-1][1]);dot.setAttribute('r','3.5');dot.setAttribute('fill','#35d0ff');dot.setAttribute('filter','url(#dp-glow)');dot.setAttribute('id','dp-dot');dot.style.opacity='0';svg.appendChild(dot);const len=line.getTotalLength?line.getTotalLength():300;line.style.strokeDasharray=len;line.style.strokeDashoffset=len;}
+
+  function buildTable(){const tb=$('dp-tbody');tb.innerHTML='';ROWS.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="dp-td-id">${r.id}</td><td class="dp-td-user">${r.user}</td><td class="dp-td-rev">${r.rev}</td><td class="dp-td-date">${r.date}</td><td class="dp-td-region">${r.region}</td><td class="${r.ok?'dp-td-valid':'dp-td-error'}">${r.ok?'● valid':'✕ error'}</td>`;tb.appendChild(tr);});}
+
+  function buildJson(){const B=[[{c:'dp-j-brace',t:'{'},{h:`  <span class="dp-j-key">"event_id"</span><span class="dp-j-brace">: </span><span class="dp-j-str">"evt_7f3a1"</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-key">"timestamp"</span><span class="dp-j-brace">: </span><span class="dp-j-num">1705310591</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-noise">??? corrupt_field: ##</span>`},{h:`  <span class="dp-j-key">"user_id"</span><span class="dp-j-brace">: </span><span class="dp-j-str">"u_4829"</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-key">"action"</span><span class="dp-j-brace">: </span><span class="dp-j-str">"purchase"</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-noise">[WARN] missing: region</span>`},{h:`  <span class="dp-j-key">"amount"</span><span class="dp-j-brace">: </span><span class="dp-j-num">149.99</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-key">"valid"</span><span class="dp-j-brace">: </span><span class="dp-j-bool">true</span>`},{c:'dp-j-brace',t:'}'}],[{c:'dp-j-brace',t:'{'},{h:`  <span class="dp-j-key">"session_id"</span><span class="dp-j-brace">: </span><span class="dp-j-str">"ses_9c2b8"</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-key">"ip"</span><span class="dp-j-brace">: </span><span class="dp-j-str">"192.168.1.42"</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-noise">}}}{ PARSE ERROR</span>`},{h:`  <span class="dp-j-key">"method"</span><span class="dp-j-brace">: </span><span class="dp-j-str">"POST"</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-key">"status"</span><span class="dp-j-brace">: </span><span class="dp-j-num">500</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-key">"latency_ms"</span><span class="dp-j-brace">: </span><span class="dp-j-num">2047</span><span class="dp-j-brace">,</span>`},{h:`  <span class="dp-j-noise">[ERR] field: user_id = null</span>`},{h:`  <span class="dp-j-key">"retried"</span><span class="dp-j-brace">: </span><span class="dp-j-bool">true</span>`},{c:'dp-j-brace',t:'}'}]];B.forEach((lines,bi)=>{const el=$('dp-json-'+bi);el.innerHTML='';lines.forEach(l=>{const s=document.createElement('span');s.className='dp-json-line';if(l.h)s.innerHTML=l.h;else s.innerHTML=`<span class="${l.c}">${l.t}</span>`;el.appendChild(s);});});}
+
+  function animRaw(){const cv=$('dp-raw-canvas');cv.innerHTML='';rA=[];for(let i=0;i<42;i++){const s=document.createElement('span');s.textContent=pick(TOKENS);s.style.left=rnd(1,92)+'%';s.style.top=rnd(2,90)+'%';s.style.fontSize=rnd(9,14)+'px';s.style.color=pick(COLORS);s.style.opacity='0';cv.appendChild(s);const a=gsap.fromTo(s,{opacity:0},{opacity:1,delay:i*.04,duration:.4,onComplete:function lp(){if(!s.parentNode)return;const d=gsap.to(s,{x:'+='+rnd(-30,30),y:'+='+rnd(-20,20),rotation:'+='+rnd(-15,15),opacity:rnd(.2,.9),duration:rnd(1.5,3.5),ease:'sine.inOut',onComplete:lp});rA.push(d);}});rA.push(a);}}
+
+  function killRaw(){rA.forEach(a=>{try{a&&a.kill&&a.kill();}catch(e){}});rA=[];const cv=$('dp-raw-canvas');if(cv)cv.innerHTML='';}
+
+  function animJson(){buildJson();const lines=document.querySelectorAll('#dp-panel-1 .dp-json-line');gsap.fromTo(lines,{opacity:0,x:-8},{opacity:1,x:0,duration:.35,stagger:.07,ease:'power2.out'});}
+
+  function animTable(){buildTable();const cells=document.querySelectorAll('#dp-tbody td');gsap.fromTo(cells,{opacity:0,x:-6},{opacity:1,x:0,duration:.22,stagger:.015,ease:'power2.out'});}
+
+  function animAnalytics(){const cards=document.querySelectorAll('.dp-kpi-card,.dp-chart-card,.dp-sparkline-card');gsap.fromTo(cards,{opacity:0,y:14},{opacity:1,y:0,duration:.45,stagger:.08,ease:'power2.out',onComplete:countUp});gsap.fromTo(document.querySelectorAll('.dp-bar-fill'),{scaleY:0},{scaleY:1,duration:.7,stagger:.08,ease:'power2.out',delay:.2});const line=$('dp-line'),area=$('dp-area'),dot=$('dp-dot');if(line){const len=line.getTotalLength?line.getTotalLength():300;line.style.strokeDasharray=len;line.style.strokeDashoffset=len;gsap.to(line,{strokeDashoffset:0,duration:1.2,ease:'power2.inOut',delay:.3});gsap.to(area,{opacity:1,duration:.6,delay:1.0});gsap.to(dot,{opacity:1,duration:.4,delay:1.4});}}
+
+  function countUp(){[{id:'dp-kv-0',t:248340,f:v=>'$'+Math.round(v).toLocaleString()},{id:'dp-kv-1',t:92847,f:v=>Math.round(v).toLocaleString()},{id:'dp-kv-2',t:98.4,f:v=>v.toFixed(1)+'%'}].forEach(c=>{const el=$(c.id);if(!el)return;const o={v:0};gsap.to(o,{v:c.t,duration:1.6,ease:'power2.out',onUpdate:()=>{el.textContent=c.f(o.v);}});});}
+
+  function startProgress(){if(aA){aA.kill();aA=null;}gsap.set($('dp-progress'),{width:'0%'});aA=gsap.to($('dp-progress'),{width:'100%',duration:DUR/1000,ease:'none',onComplete:()=>goTo((stage+1)%4)});}
+
+  function updateUI(i){document.querySelectorAll('.dp-panel').forEach((p,j)=>p.classList.toggle('active',j===i));$('dp-badge').textContent=BADGES[i];document.querySelectorAll('.dp-node').forEach((n,j)=>{n.classList.remove('active','done');if(j===i)n.classList.add('active');else if(j<i)n.classList.add('done');const num=n.querySelector('.dp-node-num');if(num)num.textContent=j<i?'✓':String(j+1).padStart(2,'0');});document.querySelectorAll('.dp-connector').forEach((c,j)=>c.classList.toggle('done',j<i));document.querySelectorAll('.dp-dot').forEach((d,j)=>d.classList.toggle('active',j===i));}
+
+  function goTo(i){if(i<0||i>=4)return;if(stage===0&&i!==0)killRaw();stage=i;updateUI(i);if(i===0)animRaw();else if(i===1)animJson();else if(i===2)animTable();else animAnalytics();startProgress();paused=false;}
+
+  $('dp-prev').addEventListener('click',()=>goTo(stage-1<0?3:stage-1));
+  $('dp-next').addEventListener('click',()=>goTo((stage+1)%4));
+  document.querySelectorAll('.dp-dot').forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.idx)));
+  document.querySelectorAll('.dp-node').forEach(n=>n.addEventListener('click',()=>goTo(+n.dataset.idx)));
+  $('dp-box').addEventListener('mouseenter',()=>{if(aA&&!paused){aA.pause();paused=true;}});
+  $('dp-box').addEventListener('mouseleave',()=>{if(aA&&paused){aA.resume();paused=false;}});
+
+  buildBars();buildSpark();buildTable();buildJson();updateUI(0);animRaw();startProgress();
+})();
+</script>
 
 </body>
 </html>
