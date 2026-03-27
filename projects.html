@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Sharan Yalka's featured projects — ML pipeline on Azure, Power BI dashboards, and ETL architecture."/>
+  <title>Projects — Sharan Yalka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <script defer src="./script.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">⟁</span>
+      Sharan Yalka
+    </a>
+    <nav class="topnav" id="topnav" aria-label="Main navigation">
+      <a class="topnav-link" href="./skills.html">Skills</a>
+      <a class="topnav-link" href="./experience.html">Experience</a>
+      <a class="topnav-link" href="./projects.html">Projects</a>
+      <a class="topnav-link" href="./education.html">Education</a>
+      <a class="topnav-link" href="./contact.html">Contact</a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">☾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="back-row">
+    <a class="back-btn" href="index.html">← Home</a>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="page-kicker">📊 Projects</span>
+        <h1>Featured Projects</h1>
+        <p>End-to-end systems built with production quality, measurable outcomes, and real business impact in mind.</p>
+      </div>
+
+      <!-- Featured Project -->
+      <article class="project-featured reveal" aria-label="Featured project">
+        <div class="featured-badge">★ Featured Project</div>
+        <p class="project-tag">Azure · Azure ML · Docker · FastAPI · Streamlit · CI/CD</p>
+        <h2 class="project-title">End-to-End ML Pipeline on Microsoft Azure</h2>
+
+        <div style="display:grid; gap:16px; margin:16px 0;">
+          <div>
+            <p class="project-label">Problem</p>
+            <p class="project-desc">
+              Building a production-grade ML system requires far more than a trained model — it needs reliable data ingestion,
+              reproducible preprocessing, automated retraining, containerised serving, and a usable interface. Most academic
+              projects stop at the notebook; this one goes all the way to deployment.
+            </p>
+          </div>
+          <div>
+            <p class="project-label">Approach</p>
+            <p class="project-desc">
+              Designed a modular pipeline on Azure: raw data lands in Azure Blob Storage, flows through a preprocessing layer,
+              and feeds Azure ML for model training. The trained model is packaged in a Docker container, served via
+              FastAPI, and made accessible through a Streamlit UI. A CI/CD pipeline handles automated testing and deployment.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-impact">
+          <span class="metric">✔ Full CI/CD integration</span>
+          <span class="metric">✔ Production-grade serving</span>
+          <span class="metric">✔ Containerised &amp; scalable</span>
+        </div>
+
+        <div class="chips" style="margin-top:16px;">
+          <span class="chip accent">Azure</span>
+          <span class="chip accent">Azure ML</span>
+          <span class="chip">Docker</span>
+          <span class="chip">FastAPI</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">Azure Blob Storage</span>
+          <span class="chip">CI/CD</span>
+          <span class="chip">Python</span>
+        </div>
+
+        <div class="project-links" style="margin-top:20px;">
+          <a class="link" href="#" target="_blank" rel="noreferrer">Architecture overview →</a>
+          <a class="link" href="#" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </div>
+      </article>
+
+      <!-- Project grid -->
+      <div class="grid-auto stagger">
+
+        <article class="project-card">
+          <p class="project-tag">Power BI · SQL · REST APIs · DAX</p>
+          <h3 class="project-title">Enterprise BI Dashboard Suite</h3>
+          <span class="metric">↑ Decision-ready KPIs</span>
+
+          <div style="display:grid; gap:10px; margin-top:4px;">
+            <div>
+              <p class="project-label">Problem</p>
+              <p class="project-desc">
+                Stakeholders relied on static spreadsheets and delayed reports, leading to decisions made on stale data
+                and manual consolidation effort across multiple source systems.
+              </p>
+            </div>
+            <div>
+              <p class="project-label">Solution</p>
+              <p class="project-desc">
+                Built comprehensive Power BI dashboards from scratch with live data ingestion from multiple REST API
+                sources. Implemented advanced DAX measures for KPI calculations, drill-down navigation, and dynamic
+                filtering. Reduced report delivery time from days to real-time.
+              </p>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip accent">Power BI</span>
+            <span class="chip accent">DAX</span>
+            <span class="chip">SQL</span>
+            <span class="chip">REST APIs</span>
+            <span class="chip">Data Modeling</span>
+          </div>
+
+          <div class="project-links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Case study →</a>
+            <a class="link" href="#" target="_blank" rel="noreferrer">GitHub →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <p class="project-tag">Python · SQL · ETL · Automation</p>
+          <h3 class="project-title">Multi-Source ETL Pipeline Architecture</h3>
+          <span class="metric">↑ 40% efficiency gain</span>
+
+          <div style="display:grid; gap:10px; margin-top:4px;">
+            <div>
+              <p class="project-label">Problem</p>
+              <p class="project-desc">
+                Multiple heterogeneous data sources required manual consolidation, causing data drift, duplication,
+                and bottlenecks that blocked downstream analytics workflows.
+              </p>
+            </div>
+            <div>
+              <p class="project-label">Solution</p>
+              <p class="project-desc">
+                Designed and implemented automated ETL workflows in Python to extract, transform, and load data
+                from disparate sources into a unified schema. Added built-in validation checks, data quality
+                monitoring, and automated scheduling — improving processing efficiency by 40%.
+              </p>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip accent">ETL</span>
+            <span class="chip accent">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Data Validation</span>
+            <span class="chip">Automation</span>
+            <span class="chip">Scheduling</span>
+          </div>
+
+          <div class="project-links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Design doc →</a>
+            <a class="link" href="#" target="_blank" rel="noreferrer">GitHub →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- About my work -->
+      <div class="card reveal" style="margin-top:28px; background: linear-gradient(135deg, rgba(53,208,255,.05), rgba(167,139,250,.04));">
+        <h3>How I approach projects</h3>
+        <p class="muted" style="margin-top:10px; font-size:14px; line-height:1.75; max-width:80ch;">
+          I design for production from day one — that means thinking about data quality, schema evolution,
+          monitoring, and what happens when a source goes down. Good data engineering is invisible when it
+          works and immediately obvious when it doesn't. I try to build the former.
+        </p>
+        <div class="chips" style="margin-top:14px;">
+          <span class="chip green">Schema-first design</span>
+          <span class="chip green">Validation at every layer</span>
+          <span class="chip green">Observable pipelines</span>
+          <span class="chip green">Idempotent jobs</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="muted small">© <span id="year"></span> Sharan Yalka</p>
+    <a class="link small" href="index.html">← Home</a>
+  </div>
+</footer>
+
+<nav class="page-nav" aria-label="Page navigation">
+  <div class="page-nav-inner">
+    <a class="page-nav-btn prev" href="experience.html">
+      <span class="nav-btn-arrow">←</span>
+      <div>
+        <p class="nav-btn-label">Back to</p>
+        <p class="nav-btn-title">Experience</p>
+      </div>
+    </a>
+    <a class="page-nav-btn next" href="education.html">
+      <div>
+        <p class="nav-btn-label">Continue to</p>
+        <p class="nav-btn-title">Education</p>
+      </div>
+      <span class="nav-btn-arrow">→</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

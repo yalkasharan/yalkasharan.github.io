@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Contact Sharan Yalka — data engineering roles, analytics projects, or collaborations."/>
+  <title>Contact — Sharan Yalka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <script defer src="./script.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">⟁</span>
+      Sharan Yalka
+    </a>
+    <nav class="topnav" id="topnav" aria-label="Main navigation">
+      <a class="topnav-link" href="./skills.html">Skills</a>
+      <a class="topnav-link" href="./experience.html">Experience</a>
+      <a class="topnav-link" href="./projects.html">Projects</a>
+      <a class="topnav-link" href="./education.html">Education</a>
+      <a class="topnav-link" href="./contact.html">Contact</a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">☾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="back-row">
+    <a class="back-btn" href="index.html">← Home</a>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="page-kicker">✉ Contact</span>
+        <h1>Get In Touch</h1>
+        <p>Open to data engineering roles, analytics projects, and technical collaborations. Based in Copenhagen — happy to work remotely too.</p>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- Form -->
+        <article class="card reveal">
+          <h3>Send a message</h3>
+          <p class="muted small" style="margin-top:4px;">I'll reply within a couple of days.</p>
+          <!-- Replace action URL with Formspree or Netlify Forms for a live site -->
+          <form class="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+            <label>
+              Name
+              <input name="name" autocomplete="name" placeholder="Your name" required/>
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" placeholder="you@company.com" required/>
+            </label>
+            <label>
+              Subject
+              <input name="subject" placeholder="Role / collaboration / question"/>
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="5" placeholder="Tell me about the role or project..." required></textarea>
+            </label>
+            <button class="btn-submit" type="submit">Send message →</button>
+          </form>
+        </article>
+
+        <!-- Links + Quick copy -->
+        <div style="display:grid; gap:14px; align-content:start;">
+
+          <article class="card reveal">
+            <h3>Connect</h3>
+            <ul class="links-list">
+              <li>
+                <a href="https://www.linkedin.com/in/sharanyalka" target="_blank" rel="noreferrer">
+                  <span class="link-icon">💼</span>
+                  LinkedIn — Sharan Yalka
+                </a>
+              </li>
+              <li>
+                <a href="mailto:sharanyalka21@gmail.com">
+                  <span class="link-icon">✉</span>
+                  sharanyalka21@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/sharanyalka" target="_blank" rel="noreferrer">
+                  <span class="link-icon">🐙</span>
+                  GitHub — @sharanyalka
+                </a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3>Quick copy email</h3>
+            <p class="muted small" style="margin-top:6px;">Click to copy my email to clipboard.</p>
+            <button
+              id="copyEmailBtn"
+              data-email="sharanyalka21@gmail.com"
+              class="btn-submit"
+              type="button"
+              style="margin-top:14px;">
+              📋 Copy email address
+            </button>
+            <div id="toast" class="toast" role="status" aria-live="polite"></div>
+          </article>
+
+          <article class="card reveal" style="background: linear-gradient(135deg, rgba(53,208,255,.05), rgba(167,139,250,.04));">
+            <h3>What I'm looking for</h3>
+            <ul class="list" style="margin-top:10px;">
+              <li>Data engineering or analytics roles in Denmark or remote</li>
+              <li>Projects involving pipelines, BI, or ML systems</li>
+              <li>Collaborative teams that care about data quality</li>
+            </ul>
+          </article>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="muted small">© <span id="year"></span> Sharan Yalka</p>
+    <a class="link small" href="index.html">← Home</a>
+  </div>
+</footer>
+
+<nav class="page-nav" aria-label="Page navigation">
+  <div class="page-nav-inner">
+    <a class="page-nav-btn prev" href="education.html">
+      <span class="nav-btn-arrow">←</span>
+      <div>
+        <p class="nav-btn-label">Back to</p>
+        <p class="nav-btn-title">Education</p>
+      </div>
+    </a>
+    <a class="page-nav-btn next" href="index.html">
+      <div>
+        <p class="nav-btn-label">Back to</p>
+        <p class="nav-btn-title">Home</p>
+      </div>
+      <span class="nav-btn-arrow">→</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>
