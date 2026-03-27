@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Engineering Pipeline — Sharan Yalka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c18;
+      --accent: #35d0ff;
+      --purple: #a78bfa;
+      --green: #34d399;
+      --orange: #fb923c;
+      --red: #f87171;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: rgba(255, 255, 255, 0.85);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+      z-index: 100;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 64px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Header */
+    .header { text-align: center; }
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .header h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 50%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+    .header p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Pipeline track */
+    .pipeline-track {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 8px 0;
+    }
+
+    .pipe-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .pipe-node-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.35);
+      transition: border-color 0.35s, background 0.35s, color 0.35s, box-shadow 0.35s;
+      will-change: transform, opacity;
+      position: relative;
+    }
+    .pipe-node-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.3);
+      text-align: center;
+      transition: color 0.35s;
+      letter-spacing: 0.04em;
+    }
+    .pipe-node.active .pipe-node-circle {
+      border-color: var(--accent);
+      background: rgba(53, 208, 255, 0.12);
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(53, 208, 255, 0.35), 0 0 40px rgba(53, 208, 255, 0.15);
+    }
+    .pipe-node.active .pipe-node-label { color: var(--accent); }
+    .pipe-node.done .pipe-node-circle {
+      border-color: var(--green);
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--green);
+      box-shadow: 0 0 16px rgba(52, 211, 153, 0.25);
+    }
+    .pipe-node.done .pipe-node-label { color: var(--green); }
+
+    .pipe-connector {
+      flex: 1;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.10);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 28px;
+      max-width: 120px;
+    }
+    .pipe-flow {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+      animation: flowAnim 2s linear infinite;
+    }
+    .pipe-connector.done { background: var(--green); }
+    .pipe-connector.done .pipe-flow { display: none; }
+    @keyframes flowAnim {
+      0% { left: -60%; }
+      100% { left: 110%; }
+    }
+
+    /* Animation stage box */
+    .stage-box {
+      position: relative;
+      height: 420px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(5, 8, 18, 0.7);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .stage-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: radial-gradient(ellipse at 50% -20%, rgba(53, 208, 255, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .stage-badge {
+      position: absolute;
+      top: 18px;
+      left: 22px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    .auto-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      z-index: 20;
+      will-change: width;
+    }
+
+    /* Panels */
+    .panel {
+      position: absolute;
+      inset: 0;
+      padding: 48px 24px 24px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      will-change: opacity;
+      display: flex;
+      flex-direction: column;
+    }
+    .panel.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Panel 0 — Raw Data */
+    .raw-canvas {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .raw-canvas span {
+      position: absolute;
+      font-family: var(--font-mono);
+      will-change: transform, opacity;
+      white-space: nowrap;
+    }
+
+    /* Panel 1 — Semi-Structured */
+    .json-blocks {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      flex: 1;
+      min-height: 0;
+    }
+    .json-block {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 2;
+      overflow: auto;
+    }
+    .json-line { display: block; will-change: transform, opacity; }
+    .j-key { color: var(--purple); }
+    .j-str { color: var(--green); }
+    .j-num { color: var(--orange); }
+    .j-bool { color: var(--accent); }
+    .j-brace { color: rgba(255, 255, 255, 0.55); }
+    .j-noise { color: rgba(248, 113, 113, 0.7); }
+    .j-null { color: rgba(255, 255, 255, 0.35); }
+
+    /* Panel 2 — Structured Table */
+    .table-wrap {
+      flex: 1;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .data-table th {
+      background: rgba(53, 208, 255, 0.08);
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      will-change: transform, opacity;
+      white-space: nowrap;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .td-id { color: rgba(255, 255, 255, 0.3); }
+    .td-user { color: #fff; font-weight: 600; font-family: var(--font-sans); font-size: 13px; }
+    .td-rev { color: var(--orange); }
+    .td-date { color: var(--purple); }
+    .td-region { color: rgba(255, 255, 255, 0.45); }
+    .td-status-valid { color: var(--green); }
+    .td-status-error { color: var(--red); }
+
+    /* Panel 3 — Analytics */
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+      height: 100%;
+    }
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 14px 16px;
+      will-change: transform, opacity;
+    }
+    .kpi-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .kpi-delta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--green);
+    }
+
+    .chart-card {
+      grid-column: 1 / 3;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      will-change: transform, opacity;
+    }
+    .chart-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 12px;
+    }
+    .bar-chart {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 8px;
+      min-height: 0;
+    }
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar-fill-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex: 1;
+    }
+    .bar-fill {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      transform-origin: bottom center;
+      will-change: transform;
+    }
+    .bar-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.4);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .sparkline-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      will-change: transform, opacity;
+    }
+    .sparkline-card svg {
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Controls */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .ctrl-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .ctrl-btn:hover {
+      border-color: var(--accent);
+      background: rgba(53, 208, 255, 0.1);
+      color: var(--accent);
+    }
+    .ctrl-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+    .dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: width 0.3s, background 0.3s;
+      width: 6px;
+    }
+    .dot.active {
+      width: 22px;
+      background: var(--accent);
+    }
+
+    @media (max-width: 640px) {
+      .wrapper { padding: 52px 16px 32px; }
+      .analytics-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto 1fr;
+      }
+      .kpi-card:nth-child(3) { grid-column: 1 / 3; }
+      .chart-card { grid-column: 1 / 3; }
+      .sparkline-card { grid-column: 1 / 3; }
+      .json-blocks { flex-direction: column; }
+      .stage-box { height: 520px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="./index.html" class="back-link">← Back to Portfolio</a>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="kicker">⟁ Data Engineering Pipeline</div>
+    <h1>From Raw Data to Insight</h1>
+    <p>Watch how a modern data pipeline transforms chaotic, unstructured logs into actionable analytics — cleaning, structuring, and surfacing insights at each stage.</p>
+  </header>
+
+  <!-- Pipeline Track -->
+  <div class="pipeline-track">
+    <div class="pipe-node" id="node-0" data-idx="0">
+      <div class="pipe-node-circle"><span class="node-label-num">01</span></div>
+      <div class="pipe-node-label">Raw Logs</div>
+    </div>
+    <div class="pipe-connector" id="conn-0"><div class="pipe-flow"></div></div>
+    <div class="pipe-node" id="node-1" data-idx="1">
+      <div class="pipe-node-circle"><span class="node-label-num">02</span></div>
+      <div class="pipe-node-label">Data Cleaning</div>
+    </div>
+    <div class="pipe-connector" id="conn-1"><div class="pipe-flow"></div></div>
+    <div class="pipe-node" id="node-2" data-idx="2">
+      <div class="pipe-node-circle"><span class="node-label-num">03</span></div>
+      <div class="pipe-node-label">Structured Storage</div>
+    </div>
+    <div class="pipe-connector" id="conn-2"><div class="pipe-flow"></div></div>
+    <div class="pipe-node" id="node-3" data-idx="3">
+      <div class="pipe-node-circle"><span class="node-label-num">04</span></div>
+      <div class="pipe-node-label">Analytics</div>
+    </div>
+  </div>
+
+  <!-- Animation Stage Box -->
+  <div class="stage-box" id="stage-box">
+    <div class="stage-badge" id="stage-badge">STAGE 01 — RAW LOGS</div>
+    <div class="auto-progress" id="auto-progress"></div>
+
+    <!-- Panel 0: Raw Data -->
+    <div class="panel active" id="panel-0">
+      <div class="raw-canvas" id="raw-canvas"></div>
+    </div>
+
+    <!-- Panel 1: Semi-Structured -->
+    <div class="panel" id="panel-1">
+      <div class="json-blocks">
+        <div class="json-block" id="json-block-0"></div>
+        <div class="json-block" id="json-block-1"></div>
+      </div>
+    </div>
+
+    <!-- Panel 2: Structured Table -->
+    <div class="panel" id="panel-2">
+      <div class="table-wrap">
+        <table class="data-table" id="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>User</th>
+              <th>Revenue</th>
+              <th>Date</th>
+              <th>Region</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Panel 3: Analytics -->
+    <div class="panel" id="panel-3">
+      <div class="analytics-grid">
+        <div class="kpi-card" id="kpi-0">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-value" id="kpi-val-0">$0</div>
+          <div class="kpi-delta">↑ 18.4% vs last period</div>
+        </div>
+        <div class="kpi-card" id="kpi-1">
+          <div class="kpi-label">Records Processed</div>
+          <div class="kpi-value" id="kpi-val-1">0</div>
+          <div class="kpi-delta">↑ 99.2% pipeline uptime</div>
+        </div>
+        <div class="kpi-card" id="kpi-2">
+          <div class="kpi-label">Data Quality</div>
+          <div class="kpi-value" id="kpi-val-2">0%</div>
+          <div class="kpi-delta">↑ 12.1% after cleaning</div>
+        </div>
+
+        <div class="chart-card" id="bar-chart-card">
+          <div class="chart-title">Revenue by Region</div>
+          <div class="bar-chart" id="bar-chart"></div>
+        </div>
+
+        <div class="sparkline-card" id="sparkline-card">
+          <div class="chart-title">Daily Throughput</div>
+          <svg id="sparkline-svg" viewBox="0 0 200 80" preserveAspectRatio="none"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls-row">
+    <button class="ctrl-btn" id="btn-prev" aria-label="Previous stage">&#8592;</button>
+    <div class="dots" id="dots">
+      <div class="dot active" data-idx="0"></div>
+      <div class="dot" data-idx="1"></div>
+      <div class="dot" data-idx="2"></div>
+      <div class="dot" data-idx="3"></div>
+    </div>
+    <button class="ctrl-btn" id="btn-next" aria-label="Next stage">&#8594;</button>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Constants ─────────────────────────────────── */
+  const STAGE_DURATION = 7000;
+
+  const BADGES = [
+    'STAGE 01 — RAW LOGS',
+    'STAGE 02 — DATA CLEANING',
+    'STAGE 03 — STRUCTURED STORAGE',
+    'STAGE 04 — ANALYTICS & INSIGHTS'
+  ];
+
+  const RAW_TOKENS = [
+    '2024-01-15T08:23:11Z', 'ERROR: null ref', '{"id":??"user', '192.168.1.42',
+    'GET /api/v2', '500 Internal', 'NaN', 'undefined', '0x4A2F', 'SELECT * FROM',
+    '\\x00\\x1f', 'WARN: timeout', 'bytes=4096', 'user_id=&&&', 'ts:1705310591',
+    'DROP TABLE', '{"event":', 'status: ???', ']][[{', 'pipe|broken',
+    'AUTH_FAIL', '{}{}{}', '<null>', 'retry #7', 'lat=??',
+    '#REF!', 'NaN%', 'overflow', 'SIGKILL', 'EOF',
+    'bad_json{', 'corrupt'
+  ];
+
+  const RAW_COLORS = [
+    'rgba(248,113,113,.75)', 'rgba(251,146,60,.65)', 'rgba(255,255,255,.22)',
+    'rgba(167,139,250,.55)', 'rgba(53,208,255,.28)', 'rgba(255,255,255,.12)'
+  ];
+
+  const TABLE_DATA = [
+    { id: '001', user: 'Alice Chen',   rev: '$2,840', date: '2024-01-15', region: 'US-East', valid: true  },
+    { id: '002', user: 'Bob Müller',   rev: '$1,120', date: '2024-01-15', region: 'EU-West', valid: true  },
+    { id: '003', user: 'Riya Patel',   rev: '$4,560', date: '2024-01-16', region: 'APAC',    valid: true  },
+    { id: '004', user: 'James O.',     rev: '$890',   date: '2024-01-16', region: 'US-West', valid: false },
+    { id: '005', user: 'Sofia A.',     rev: '$3,270', date: '2024-01-17', region: 'EU-East', valid: true  },
+    { id: '006', user: 'Wei Zhang',    rev: '$1,990', date: '2024-01-17', region: 'APAC',    valid: true  },
+    { id: '007', user: 'Luca Ferrari', rev: '$640',   date: '2024-01-18', region: 'EU-West', valid: true  },
+    { id: '008', user: 'Ana García',   rev: '$5,100', date: '2024-01-18', region: 'LatAm',   valid: true  }
+  ];
+
+  const BAR_DATA = [
+    { label: 'US-East', pct: 78, color: 'linear-gradient(to top, #35d0ff, rgba(53,208,255,.5))' },
+    { label: 'EU-West', pct: 54, color: 'linear-gradient(to top, #a78bfa, rgba(167,139,250,.5))' },
+    { label: 'APAC',    pct: 91, color: 'linear-gradient(to top, #34d399, rgba(52,211,153,.5))' },
+    { label: 'US-West', pct: 43, color: 'linear-gradient(to top, #35d0ff, rgba(53,208,255,.5))' },
+    { label: 'EU-East', pct: 62, color: 'linear-gradient(to top, #a78bfa, rgba(167,139,250,.5))' },
+    { label: 'LatAm',   pct: 38, color: 'linear-gradient(to top, #fb923c, rgba(251,146,60,.5))' }
+  ];
+
+  const SPARKLINE_PTS = [22, 35, 28, 48, 40, 55, 51, 68, 62, 74, 70, 80];
+
+  /* ── State ──────────────────────────────────────── */
+  let currentStage = 0;
+  let rawAnims = [];
+  let autoAnim = null;
+  let paused = false;
+  let progressPausedAt = 0;
+
+  /* ── DOM refs ───────────────────────────────────── */
+  const stageBox      = document.getElementById('stage-box');
+  const stageBadge    = document.getElementById('stage-badge');
+  const autoProgress  = document.getElementById('auto-progress');
+  const btnPrev       = document.getElementById('btn-prev');
+  const btnNext       = document.getElementById('btn-next');
+  const dotsEl        = document.getElementById('dots');
+  const rawCanvas     = document.getElementById('raw-canvas');
+
+  /* ── Helpers ─────────────────────────────────────── */
+  const rand = (min, max) => Math.random() * (max - min) + min;
+  const randInt = (min, max) => Math.floor(rand(min, max + 1));
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+  /* ── Build static elements ───────────────────────── */
+  function buildTable() {
+    const tbody = document.getElementById('table-body');
+    tbody.innerHTML = '';
+    TABLE_DATA.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="td-id">${row.id}</td>
+        <td class="td-user">${row.user}</td>
+        <td class="td-rev">${row.rev}</td>
+        <td class="td-date">${row.date}</td>
+        <td class="td-region">${row.region}</td>
+        <td class="${row.valid ? 'td-status-valid' : 'td-status-error'}">${row.valid ? '● valid' : '✕ error'}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function buildBarChart() {
+    const container = document.getElementById('bar-chart');
+    container.innerHTML = '';
+    BAR_DATA.forEach(item => {
+      const col = document.createElement('div');
+      col.className = 'bar-col';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'bar-fill-wrap';
+
+      const fill = document.createElement('div');
+      fill.className = 'bar-fill';
+      fill.style.height = (item.pct * 0.75) + 'px';
+      fill.style.background = item.color;
+      fill.style.transform = 'scaleY(0)';
+
+      const label = document.createElement('div');
+      label.className = 'bar-label';
+      label.textContent = item.label;
+
+      wrap.appendChild(fill);
+      col.appendChild(wrap);
+      col.appendChild(label);
+      container.appendChild(col);
+    });
+  }
+
+  function buildSparkline() {
+    const svg = document.getElementById('sparkline-svg');
+    svg.innerHTML = '';
+    const pts = SPARKLINE_PTS;
+    const W = 200, H = 80;
+    const minV = Math.min(...pts), maxV = Math.max(...pts);
+    const xStep = W / (pts.length - 1);
+    const toX = i => i * xStep;
+    const toY = v => H - ((v - minV) / (maxV - minV)) * (H - 10) - 5;
+
+    const coords = pts.map((v, i) => [toX(i), toY(v)]);
+    const lineD = coords.map((p, i) => (i === 0 ? `M${p[0]},${p[1]}` : `L${p[0]},${p[1]}`)).join(' ');
+    const areaD = lineD + ` L${coords[coords.length - 1][0]},${H} L0,${H} Z`;
+
+    // Defs
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+
+    const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+    grad.setAttribute('id', 'spk-grad');
+    grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+    grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+    const s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+    s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', '#35d0ff'); s1.setAttribute('stop-opacity', '0.3');
+    const s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+    s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', '#35d0ff'); s2.setAttribute('stop-opacity', '0');
+    grad.appendChild(s1); grad.appendChild(s2);
+
+    const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+    filter.setAttribute('id', 'glow');
+    const fe = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+    fe.setAttribute('stdDeviation', '2'); fe.setAttribute('result', 'blur');
+    const feMerge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
+    const n1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    n1.setAttribute('in', 'blur');
+    const n2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    n2.setAttribute('in', 'SourceGraphic');
+    feMerge.appendChild(n1); feMerge.appendChild(n2);
+    filter.appendChild(fe); filter.appendChild(feMerge);
+
+    defs.appendChild(grad); defs.appendChild(filter);
+    svg.appendChild(defs);
+
+    // Area
+    const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    area.setAttribute('d', areaD);
+    area.setAttribute('fill', 'url(#spk-grad)');
+    area.setAttribute('id', 'spk-area');
+    area.style.opacity = '0';
+    svg.appendChild(area);
+
+    // Line
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    line.setAttribute('d', lineD);
+    line.setAttribute('fill', 'none');
+    line.setAttribute('stroke', '#35d0ff');
+    line.setAttribute('stroke-width', '2');
+    line.setAttribute('stroke-linecap', 'round');
+    line.setAttribute('stroke-linejoin', 'round');
+    line.setAttribute('id', 'spk-line');
+    line.setAttribute('filter', 'url(#glow)');
+    svg.appendChild(line);
+
+    // Dot
+    const lastCoord = coords[coords.length - 1];
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    dot.setAttribute('cx', lastCoord[0]);
+    dot.setAttribute('cy', lastCoord[1]);
+    dot.setAttribute('r', '3.5');
+    dot.setAttribute('fill', '#35d0ff');
+    dot.setAttribute('filter', 'url(#glow)');
+    dot.setAttribute('id', 'spk-dot');
+    dot.style.opacity = '0';
+    svg.appendChild(dot);
+
+    // Set dash for animation
+    const length = line.getTotalLength ? line.getTotalLength() : 300;
+    line.style.strokeDasharray = length;
+    line.style.strokeDashoffset = length;
+  }
+
+  function buildJsonBlocks() {
+    const block0 = [
+      { text: '{', cls: 'j-brace' },
+      { html: `  <span class="j-key">"event_id"</span><span class="j-brace">: </span><span class="j-str">"evt_7f3a1"</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-key">"timestamp"</span><span class="j-brace">: </span><span class="j-num">1705310591</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-noise">??? corrupt_field: ##</span>` },
+      { html: `  <span class="j-key">"user_id"</span><span class="j-brace">: </span><span class="j-str">"u_4829"</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-key">"action"</span><span class="j-brace">: </span><span class="j-str">"purchase"</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-noise">[WARN] missing: region</span>` },
+      { html: `  <span class="j-key">"amount"</span><span class="j-brace">: </span><span class="j-num">149.99</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-key">"valid"</span><span class="j-brace">: </span><span class="j-bool">true</span>` },
+      { text: '}', cls: 'j-brace' }
+    ];
+
+    const block1 = [
+      { text: '{', cls: 'j-brace' },
+      { html: `  <span class="j-key">"session_id"</span><span class="j-brace">: </span><span class="j-str">"ses_9c2b8"</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-key">"ip"</span><span class="j-brace">: </span><span class="j-str">"192.168.1.42"</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-noise">}}}{ PARSE ERROR</span>` },
+      { html: `  <span class="j-key">"method"</span><span class="j-brace">: </span><span class="j-str">"POST"</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-key">"status"</span><span class="j-brace">: </span><span class="j-num">500</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-key">"latency_ms"</span><span class="j-brace">: </span><span class="j-num">2047</span><span class="j-brace">,</span>` },
+      { html: `  <span class="j-noise">[ERR] field: user_id = null</span>` },
+      { html: `  <span class="j-key">"retried"</span><span class="j-brace">: </span><span class="j-bool">true</span>` },
+      { text: '}', cls: 'j-brace' }
+    ];
+
+    [block0, block1].forEach((lines, bi) => {
+      const el = document.getElementById('json-block-' + bi);
+      el.innerHTML = '';
+      lines.forEach(line => {
+        const span = document.createElement('span');
+        span.className = 'json-line';
+        if (line.html) {
+          span.innerHTML = line.html;
+        } else {
+          span.innerHTML = `<span class="${line.cls}">${line.text}</span>`;
+        }
+        el.appendChild(span);
+      });
+    });
+  }
+
+  /* ── Stage animations ─────────────────────────── */
+  function animateStage(idx) {
+    if (idx === 0) animateRaw();
+    else if (idx === 1) animateJson();
+    else if (idx === 2) animateTable();
+    else if (idx === 3) animateAnalytics();
+  }
+
+  function animateRaw() {
+    rawCanvas.innerHTML = '';
+    rawAnims = [];
+    for (let i = 0; i < 42; i++) {
+      const span = document.createElement('span');
+      span.textContent = pick(RAW_TOKENS);
+      span.style.left = rand(1, 92) + '%';
+      span.style.top = rand(2, 90) + '%';
+      span.style.fontSize = rand(9, 14) + 'px';
+      span.style.color = pick(RAW_COLORS);
+      span.style.opacity = '0';
+      span.style.willChange = 'transform, opacity';
+      rawCanvas.appendChild(span);
+
+      const a = gsap.fromTo(span, { opacity: 0 }, {
+        opacity: 1,
+        delay: i * 0.04,
+        duration: 0.4,
+        onComplete: function loop() {
+          if (!span.parentNode) return;
+          const drift = gsap.to(span, {
+            x: '+=' + rand(-30, 30),
+            y: '+=' + rand(-20, 20),
+            rotation: '+=' + rand(-15, 15),
+            opacity: rand(0.2, 0.9),
+            duration: rand(1.5, 3.5),
+            ease: 'sine.inOut',
+            onComplete: loop
+          });
+          rawAnims.push(drift);
+        }
+      });
+      rawAnims.push(a);
+    }
+  }
+
+  function killRaw() {
+    rawAnims.forEach(a => { try { a && a.kill && a.kill(); } catch(e){} });
+    rawAnims = [];
+    rawCanvas.innerHTML = '';
+  }
+
+  function animateJson() {
+    buildJsonBlocks();
+    const lines = document.querySelectorAll('#panel-1 .json-line');
+    gsap.fromTo(lines,
+      { opacity: 0, x: -8 },
+      { opacity: 1, x: 0, duration: 0.35, stagger: 0.07, ease: 'power2.out' }
+    );
+  }
+
+  function animateTable() {
+    buildTable();
+    const cells = document.querySelectorAll('#table-body td');
+    gsap.fromTo(cells,
+      { opacity: 0, x: -6 },
+      { opacity: 1, x: 0, duration: 0.22, stagger: 0.015, ease: 'power2.out' }
+    );
+  }
+
+  function animateAnalytics() {
+    // Cards fade in
+    const cards = document.querySelectorAll('.kpi-card, .chart-card, .sparkline-card');
+    gsap.fromTo(cards,
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, ease: 'power2.out',
+        onComplete: countUpKPIs }
+    );
+
+    // Bars
+    const fills = document.querySelectorAll('.bar-fill');
+    gsap.fromTo(fills,
+      { scaleY: 0 },
+      { scaleY: 1, duration: 0.7, stagger: 0.08, ease: 'power2.out', delay: 0.2 }
+    );
+
+    // Sparkline draw
+    const line = document.getElementById('spk-line');
+    const area = document.getElementById('spk-area');
+    const dot  = document.getElementById('spk-dot');
+    if (line) {
+      const len = line.getTotalLength ? line.getTotalLength() : 300;
+      line.style.strokeDasharray = len;
+      line.style.strokeDashoffset = len;
+      gsap.to(line, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', delay: 0.3 });
+      gsap.to(area, { opacity: 1, duration: 0.6, delay: 1.0 });
+      gsap.to(dot,  { opacity: 1, duration: 0.4, delay: 1.4 });
+    }
+  }
+
+  function countUpKPIs() {
+    const configs = [
+      { id: 'kpi-val-0', target: 248340, prefix: '$', suffix: '',  decimals: 0, format: v => '$' + Math.round(v).toLocaleString() },
+      { id: 'kpi-val-1', target: 92847,  prefix: '',  suffix: '',  decimals: 0, format: v => Math.round(v).toLocaleString() },
+      { id: 'kpi-val-2', target: 98.4,   prefix: '',  suffix: '%', decimals: 1, format: v => v.toFixed(1) + '%' }
+    ];
+    configs.forEach(cfg => {
+      const el = document.getElementById(cfg.id);
+      if (!el) return;
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: cfg.target,
+        duration: 1.6,
+        ease: 'power2.out',
+        onUpdate: () => { el.textContent = cfg.format(obj.val); }
+      });
+    });
+  }
+
+  /* ── Auto-progress bar ──────────────────────────── */
+  function startAutoProgress() {
+    if (autoAnim) { autoAnim.kill(); autoAnim = null; }
+    gsap.set(autoProgress, { width: '0%' });
+
+    autoAnim = gsap.to(autoProgress, {
+      width: '100%',
+      duration: STAGE_DURATION / 1000,
+      ease: 'none',
+      onComplete: () => {
+        const next = (currentStage + 1) % 4;
+        goToStage(next);
+      }
+    });
+  }
+
+  function pauseProgress() {
+    if (autoAnim && !paused) {
+      autoAnim.pause();
+      paused = true;
+    }
+  }
+
+  function resumeProgress() {
+    if (autoAnim && paused) {
+      autoAnim.resume();
+      paused = false;
+    }
+  }
+
+  /* ── Update UI state ────────────────────────────── */
+  function updateUI(idx) {
+    // Panels
+    document.querySelectorAll('.panel').forEach((p, i) => {
+      p.classList.toggle('active', i === idx);
+    });
+
+    // Badge
+    stageBadge.textContent = BADGES[idx];
+
+    // Nodes
+    document.querySelectorAll('.pipe-node').forEach((n, i) => {
+      n.classList.remove('active', 'done');
+      if (i === idx) n.classList.add('active');
+      else if (i < idx) n.classList.add('done');
+
+      // Show checkmark on done
+      const numEl = n.querySelector('.node-label-num');
+      if (i < idx) numEl.textContent = '✓';
+      else numEl.textContent = String(i + 1).padStart(2, '0');
+    });
+
+    // Connectors
+    document.querySelectorAll('.pipe-connector').forEach((c, i) => {
+      c.classList.toggle('done', i < idx);
+    });
+
+    // Dots
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+
+    // Buttons
+    btnPrev.disabled = false;
+    btnNext.disabled = false;
+  }
+
+  /* ── Main transition function ───────────────────── */
+  function goToStage(idx) {
+    if (idx < 0 || idx >= 4) return;
+
+    // Kill raw animations when leaving stage 0
+    if (currentStage === 0 && idx !== 0) killRaw();
+
+    currentStage = idx;
+    updateUI(idx);
+    animateStage(idx);
+    startAutoProgress();
+    if (paused) { paused = false; }
+  }
+
+  /* ── Event listeners ────────────────────────────── */
+  btnPrev.addEventListener('click', () => {
+    goToStage(currentStage - 1 < 0 ? 3 : currentStage - 1);
+  });
+  btnNext.addEventListener('click', () => {
+    goToStage((currentStage + 1) % 4);
+  });
+
+  document.querySelectorAll('.dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const i = parseInt(dot.dataset.idx, 10);
+      goToStage(i);
+    });
+  });
+
+  document.querySelectorAll('.pipe-node').forEach(node => {
+    node.addEventListener('click', () => {
+      const i = parseInt(node.dataset.idx, 10);
+      goToStage(i);
+    });
+  });
+
+  stageBox.addEventListener('mouseenter', pauseProgress);
+  stageBox.addEventListener('mouseleave', resumeProgress);
+
+  /* ── Init ───────────────────────────────────────── */
+  buildBarChart();
+  buildSparkline();
+  buildTable();
+  buildJsonBlocks();
+
+  // Start at stage 0
+  updateUI(0);
+  animateStage(0);
+  startAutoProgress();
+
+})();
+</script>
+</body>
+</html>
