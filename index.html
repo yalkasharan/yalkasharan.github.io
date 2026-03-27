@@ -1,351 +1,778 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Great Crime Shift | San Francisco 2020</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Source Serif Pro', Georgia, serif;
-            line-height: 1.7;
-            color: #1a1a1a;
-            background: #fafafa;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 4rem 0 3rem;
-            border-bottom: 1px solid #e0e0e0;
-            margin-bottom: 3rem;
-        }
-
-        .kicker {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #D62728;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-family: 'Source Serif Pro', Georgia, serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: #1a1a1a;
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: #555;
-            font-style: italic;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Sections */
-        section {
-            margin-bottom: 3.5rem;
-        }
-
-        h2 {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: #333;
-        }
-
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .lead {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: #333;
-        }
-
-        /* Visualizations */
-        .viz-container {
-            margin: 2.5rem 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-
-        .viz-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .viz-container iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-        }
-
-        .caption {
-            padding: 1.2rem 1.5rem;
-            background: #f5f5f5;
-            border-top: 1px solid #e8e8e8;
-        }
-
-        .caption-label {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .caption p {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #444;
-            margin-bottom: 0;
-            text-align: left;
-        }
-
-        /* Pull quote */
-        .pullquote {
-            font-size: 1.6rem;
-            font-style: italic;
-            color: #D62728;
-            text-align: center;
-            padding: 2rem;
-            margin: 2.5rem 0;
-            border-left: 4px solid #D62728;
-            background: linear-gradient(to right, rgba(214,39,40,0.05), transparent);
-        }
-
-        /* Data box */
-        .data-box {
-            background: #f0f4f8;
-            border-left: 4px solid #1F77B4;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .data-box h3 {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1F77B4;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-        }
-
-        .data-box p {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.95rem;
-            margin-bottom: 0;
-            text-align: left;
-        }
-
-        /* Limitations */
-        .limitations {
-            background: #fff8e6;
-            border: 1px solid #ffd966;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-        }
-
-        .limitations h3 {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #856404;
-            margin-bottom: 1rem;
-        }
-
-        .limitations ul {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.95rem;
-            color: #664d03;
-            margin-left: 1.5rem;
-        }
-
-        .limitations li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e0e0e0;
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        footer p {
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .subtitle { font-size: 1.1rem; }
-            .pullquote { font-size: 1.3rem; }
-            .viz-container iframe { height: 400px; }
-        }
-    </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Sharan Yalka — Data Engineer & Analytics Specialist. MSc Computer Science at DTU. Python · SQL · Power BI · Azure · ETL/ELT."/>
+  <title>Sharan Yalka | Data Engineer & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <script defer src="./script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <p class="kicker">San Francisco Crime Data</p>
-            <h1>The Great Crime Shift</h1>
-            <p class="subtitle">How empty streets changed what got stolen in San Francisco during COVID-19</p>
-        </header>
+<a class="skip-link" href="#main">Skip to content</a>
 
-        <section>
-            <p class="lead">
-                In March 2020, San Francisco's streets emptied overnight. Within weeks, foot traffic in the Financial District dropped 90%. BART ridership collapsed. The city that never sleeps went quiet.
-            </p>
-            <p>
-                Crime statistics from that period show something counterintuitive: total reported crime dropped, but certain categories exploded. The pandemic didn't stop opportunistic criminals—it just changed their targets. And some of those changes have proven remarkably persistent.
-            </p>
-        </section>
+<!-- Scroll progress -->
+<div id="scroll-progress" aria-hidden="true"></div>
 
-        <div class="data-box">
-            <h3>About the Data</h3>
-            <p>
-                This analysis uses 1,048,575 incident reports from the San Francisco Police Department, spanning 2003 to 2025. The dataset merges two SFPD reporting systems—historical records (2003-2018) and the current system (2018-present)—unified into consistent crime categories. I focus primarily on 2019-2023 to isolate pandemic effects from longer-term trends.
-            </p>
-        </div>
+<!-- Loading screen -->
+<div id="loader" aria-hidden="true">
+  <span class="loader-brand">Sharan Yalka</span>
+  <div class="loader-pipeline">
+    <div class="loader-node"></div>
+    <div class="loader-edge"></div>
+    <div class="loader-node"></div>
+    <div class="loader-edge"></div>
+    <div class="loader-node"></div>
+    <div class="loader-edge"></div>
+    <div class="loader-node"></div>
+    <div class="loader-edge"></div>
+    <div class="loader-node"></div>
+  </div>
+  <span class="loader-status">initializing pipeline...</span>
+</div>
 
-        <section>
-            <h2>The Inversion</h2>
-            <p>
-                The first year of the pandemic created a near-perfect natural experiment. With shelter-in-place orders in effect, San Francisco saw two distinct patterns emerge: crimes that require victim proximity—robbery, assault, pickpocketing—plummeted. But crimes targeting unattended property surged.
-            </p>
-            <p>
-                Burglaries jumped 55%. Vehicle theft rose 39%. At the same time, larceny (which includes shoplifting) fell 37%, and robberies dropped 26%. The pattern is clear: remove people from the equation, and you remove both witnesses and certain types of targets.
-            </p>
-        </section>
+<!-- Scroll to top -->
+<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
 
-        <div class="viz-container">
-            <img src="viz1_crime_divergence.png" alt="Diverging bar chart showing COVID crime changes">
-            <div class="caption">
-                <p class="caption-label">Figure 1</p>
-                <p>
-                    <strong>The pandemic inverted San Francisco's crime profile.</strong> Crimes requiring victim proximity—robbery, assault, larceny—fell 20-35% as people stayed home. But property crimes targeting unattended vehicles and buildings surged, with burglaries up 55%. Empty streets don't mean safety; they just shift who becomes a target.
-                </p>
-            </div>
-        </div>
-
-        <section>
-            <h2>The Geographic Flip</h2>
-            <p>
-                The crime shift wasn't just categorical—it was spatial. With commuters gone, downtown San Francisco saw vehicle theft actually <em>decrease</em>. The Central district, home to the Financial District and Union Square, recorded 3.4% fewer car thefts in 2020 than 2019.
-            </p>
-            <p>
-                But the outer residential neighborhoods told a different story. Ingleside, a residential district in the city's south, saw an 83% surge in vehicle theft. Northern district jumped 51%. These areas weren't empty—people were home, working remotely. But their cars sat unattended on residential streets, sometimes for days at a time.
-            </p>
-        </section>
-
-        <div class="pullquote">
-            "The pandemic didn't reduce crime—it relocated it."
-        </div>
-
-        <div class="viz-container">
-            <iframe src="viz2_vehicle_theft_map.html" title="Vehicle theft map"></iframe>
-            <div class="caption">
-                <p class="caption-label">Figure 2</p>
-                <p>
-                    <strong>Vehicle theft didn't just increase—it moved.</strong> Downtown (Central district) actually saw a 3% drop as commuters vanished, leaving no cars to steal. Meanwhile, Ingleside saw an 83% surge as residential cars sat unattended while owners worked from home. Click each district for details.
-                </p>
-            </div>
-        </div>
-
-        <section>
-            <h2>The New Normal</h2>
-            <p>
-                Perhaps most striking is what happened after the lockdowns lifted. By 2022, most pandemic restrictions were gone. People returned to offices—at least part-time. You might expect crime patterns to revert to their pre-pandemic baseline.
-            </p>
-            <p>
-                They didn't. As of 2023, vehicle theft remained 63% above 2019 levels. Burglary stayed elevated at 116% of baseline. Meanwhile, larceny/theft—once the city's most common crime category by far—has never recovered, sitting at just 54% of 2019 volume even in 2024.
-            </p>
-            <p>
-                The pandemic may have revealed a new equilibrium. Remote and hybrid work persists. Fewer people ride transit. Streets remain quieter than they were in 2019. The conditions that enabled the 2020 surge haven't fully reversed.
-            </p>
-        </section>
-
-        <div class="viz-container">
-            <iframe src="viz3_crime_trajectory.html" title="Crime trajectory chart"></iframe>
-            <div class="caption">
-                <p class="caption-label">Figure 3</p>
-                <p>
-                    <strong>Four years later, the shift persists.</strong> Vehicle theft peaked at 163% of 2019 levels in 2023 and remains elevated. Larceny/theft—once dominant—sits at just 54% of pre-pandemic volume. Use the buttons to compare property vs. violent crimes. The pandemic didn't create a temporary spike; it revealed a new equilibrium.
-                </p>
-            </div>
-        </div>
-
-        <section>
-            <h2>What This Data Can't Tell Us</h2>
-            <p>
-                Crime statistics measure <em>reported</em> crime, not actual crime. This distinction matters enormously when interpreting pandemic-era data.
-            </p>
-        </section>
-
-        <div class="limitations">
-            <h3>Key Limitations</h3>
-            <ul>
-                <li><strong>Reporting bias:</strong> Fewer people on streets means fewer witnesses and fewer reports filed. The larceny drop may partly reflect underreporting, not just actual decline.</li>
-                <li><strong>Enforcement changes:</strong> SFPD deprioritized some proactive policing during COVID. Categories may show drops because officers weren't looking.</li>
-                <li><strong>Opportunity, not behavior:</strong> Retail stores closed in 2020. Shoplifting dropped because there was nothing to shoplift. This isn't "less crime"—it's "no opportunity."</li>
-                <li><strong>Data system merge:</strong> The dataset combines two SFPD reporting systems at 2018. Category definitions may not align perfectly across the boundary.</li>
-            </ul>
-        </div>
-
-        <section>
-            <h2>Context: Policy and Place</h2>
-            <p>
-                Two external factors help explain these patterns. First, San Francisco's March 17, 2020 shelter-in-place order—among the first in the nation—provides a clean before/after boundary. The crime divergence aligns precisely with this date.
-            </p>
-            <p>
-                Second, California's Proposition 47 (2014) reclassified thefts under $950 from felonies to misdemeanors. Some argue this reduced reporting incentives for low-value thefts. The larceny trend warrants careful interpretation: are fewer thefts occurring, or are fewer being reported because consequences seem minimal?
-            </p>
-            <p>
-                What the data shows clearly is this: the pandemic was a natural experiment in criminology. Remove crowds, and you remove both witnesses and certain types of targets. Opportunistic crime doesn't disappear—it adapts.
-            </p>
-        </section>
-
-        <footer>
-            <p><strong>Data Source:</strong> San Francisco Police Department Incident Reports, 2003-2025</p>
-            <p><strong>Analysis:</strong> Social Data Analysis and Visualization Course, 2026</p>
-        </footer>
+<!-- Topbar -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#hero">
+      <span class="brand-mark" aria-hidden="true">⟁</span>
+      Sharan Yalka
+    </a>
+    <nav class="topnav" id="topnav" aria-label="Main navigation">
+      <a class="topnav-link" href="#skills">Skills</a>
+      <a class="topnav-link" href="#experience">Experience</a>
+      <a class="topnav-link" href="#projects">Projects</a>
+      <a class="topnav-link" href="#education">Education</a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">☾</span>
+      </button>
     </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section id="hero" class="hero" aria-label="Introduction">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+    <div class="container hero-grid">
+
+      <!-- Left: copy -->
+      <div class="hero-left reveal-left">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Open to opportunities
+        </div>
+
+        <p class="kicker">Data Engineering · Analytics · Cloud</p>
+
+        <h1 class="hero-title">
+          Turning raw data into<br>
+          <span class="accent-word">decisions that stick.</span>
+        </h1>
+
+        <p class="hero-sub">
+          I'm <strong>Sharan Yalka</strong>, an MSc Computer Science student at DTU Copenhagen.
+          I design reliable data pipelines, build BI dashboards, and deploy ML systems that
+          people actually trust and use.
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn-primary" href="#projects">View Projects →</a>
+          <a class="btn-secondary" href="mailto:sharanyalka21@gmail.com">Get In Touch</a>
+          <a class="btn-ghost" href="mailto:sharanyalka21@gmail.com">Download CV ↓</a>
+        </div>
+
+        <div class="badges" aria-label="Core technologies">
+          <span class="badge">Python</span>
+          <span class="badge">SQL</span>
+          <span class="badge">Power BI</span>
+          <span class="badge">Azure</span>
+          <span class="badge">Docker</span>
+          <span class="badge">FastAPI</span>
+          <span class="badge">ETL/ELT</span>
+          <span class="badge">DAX</span>
+        </div>
+      </div>
+
+      <!-- Right: terminal -->
+      <aside class="reveal-right">
+        <div class="terminal" aria-label="System status panel">
+          <div class="terminal-bar" aria-hidden="true">
+            <span class="dot r"></span>
+            <span class="dot y"></span>
+            <span class="dot g"></span>
+            <span class="terminal-title">sharan@portfolio ~ %</span>
+          </div>
+          <pre class="terminal-body" aria-label="Terminal output"><code><span class="t-line"><span class="t-muted">$ </span><span class="t-blue">whoami</span></span>
+<span class="t-line"><span class="t-green">Sharan Yalka</span> — Data Engineer &amp; Analyst</span>
+<span class="t-line"></span>
+<span class="t-line"><span class="t-muted">$ </span><span class="t-blue">status --all</span></span>
+<span class="t-line"><span class="t-green">✔</span> pipelines     <span class="t-muted">healthy</span></span>
+<span class="t-line"><span class="t-green">✔</span> dashboards    <span class="t-muted">refreshed</span></span>
+<span class="t-line"><span class="t-green">✔</span> cloud deploy  <span class="t-muted">live · Azure</span></span>
+<span class="t-line"><span class="t-green">✔</span> open to work  <span class="t-muted">true</span></span>
+<span class="t-line"></span>
+<span class="t-line"><span class="t-muted">$ </span><span class="t-blue">skills --top</span></span>
+<span class="t-line"><span class="t-purple">Python  SQL  Power BI  Azure</span></span>
+<span class="t-line"><span class="t-purple">Docker  FastAPI  ETL  DAX</span></span>
+<span class="t-line"></span>
+<span class="t-line"><span class="t-muted">$ </span><span class="t-blue">location</span></span>
+<span class="t-line"><span class="t-orange">Copenhagen, Denmark 🇩🇰</span></span>
+<span class="t-line"><span class="cursor"></span></span></code></pre>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Pipeline strip -->
+  <div class="pipeline-divider">
+    <div class="container reveal">
+      <p class="nav-section-label">— Data flow, end to end</p>
+      <div class="pipeline-strip" aria-label="Data pipeline stages" role="list">
+        <div class="pipe-node" role="listitem">Source</div>
+        <div class="pipe-edge" aria-hidden="true"></div>
+        <div class="pipe-node" role="listitem">Ingest</div>
+        <div class="pipe-edge" aria-hidden="true"></div>
+        <div class="pipe-node" role="listitem">Transform</div>
+        <div class="pipe-edge" aria-hidden="true"></div>
+        <div class="pipe-node" role="listitem">Validate</div>
+        <div class="pipe-edge" aria-hidden="true"></div>
+        <div class="pipe-node" role="listitem">Load</div>
+        <div class="pipe-edge" aria-hidden="true"></div>
+        <div class="pipe-node" role="listitem">Serve</div>
+        <div class="pipe-edge" aria-hidden="true"></div>
+        <div class="pipe-node" role="listitem">Insight</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="stats-strip reveal">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-num counter" data-count="3">3</span>
+          <span class="stat-label">Work Roles</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num counter" data-count="3">3</span>
+          <span class="stat-label">Featured Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num counter" data-count="2">2</span>
+          <span class="stat-label">Countries</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SKILLS ══════════════ -->
+  <section id="skills" class="section">
+    <div class="section-orb orb-blue" aria-hidden="true"></div>
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-num" aria-hidden="true">01</span>
+        <span class="page-kicker">🛠 Skills</span>
+        <h2>Technical Skills</h2>
+        <p>Grouped by domain — data engineering at the core, with cloud infrastructure, analytics, and software delivery surrounding it.</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:40px;">
+
+        <div class="card reveal">
+          <h3>Core Proficiency</h3>
+          <p class="muted small" style="margin-bottom:18px;">Depth of hands-on experience with key tools</p>
+          <div class="skill-group">
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-header">
+                <span class="skill-bar-name">SQL</span>
+                <span class="skill-pct">90%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-bar-fill" data-pct="90"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-header">
+                <span class="skill-bar-name">Python</span>
+                <span class="skill-pct">85%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-bar-fill" data-pct="85"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-header">
+                <span class="skill-bar-name">Power BI / DAX</span>
+                <span class="skill-pct">83%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-bar-fill" data-pct="83"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-header">
+                <span class="skill-bar-name">Data Pipeline Design</span>
+                <span class="skill-pct">80%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-bar-fill" data-pct="80"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-header">
+                <span class="skill-bar-name">Azure / Cloud</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-bar-fill" data-pct="78"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-header">
+                <span class="skill-bar-name">Docker / CI/CD</span>
+                <span class="skill-pct">76%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-bar-fill" data-pct="76"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:14px; align-content:start;">
+          <div class="card reveal">
+            <h3>Domain Focus</h3>
+            <p class="muted small" style="margin-bottom:14px;">Business areas with proven, hands-on impact</p>
+            <div class="skill-pills">
+              <span class="skill-pill"><span class="skill-pill-icon">🔁</span> ETL / ELT Pipelines</span>
+              <span class="skill-pill"><span class="skill-pill-icon">📊</span> Business Intelligence</span>
+              <span class="skill-pill"><span class="skill-pill-icon">💰</span> Cost & Financial Analytics</span>
+              <span class="skill-pill"><span class="skill-pill-icon">🔗</span> EDI / B2B Integration</span>
+              <span class="skill-pill"><span class="skill-pill-icon">🤖</span> ML Systems (MLOps)</span>
+              <span class="skill-pill"><span class="skill-pill-icon">📐</span> Statistics & Probability</span>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <h3>Currently Learning</h3>
+            <p class="muted small" style="margin-bottom:14px;">Expanding the toolkit at DTU</p>
+            <div class="chips">
+              <span class="chip accent">Apache Spark</span>
+              <span class="chip accent">dbt</span>
+              <span class="chip accent">Airflow</span>
+              <span class="chip purple">Kubernetes</span>
+              <span class="chip purple">Azure Synapse</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="grid-3 stagger">
+
+        <article class="card">
+          <div class="skill-category">
+            <p class="skill-category-title">Data Engineering</p>
+          </div>
+          <div class="chips">
+            <span class="chip accent">ETL / ELT</span>
+            <span class="chip accent">Data Modeling</span>
+            <span class="chip accent">Schema Design</span>
+            <span class="chip accent">Data Quality</span>
+            <span class="chip accent">Pipeline Orchestration</span>
+            <span class="chip accent">Observability</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="skill-category">
+            <p class="skill-category-title">Languages & Databases</p>
+          </div>
+          <div class="chips">
+            <span class="chip accent">Python</span>
+            <span class="chip accent">SQL</span>
+            <span class="chip accent">Bash / Shell</span>
+            <span class="chip accent">PostgreSQL</span>
+            <span class="chip accent">NoSQL</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="skill-category">
+            <p class="skill-category-title">Analytics & BI</p>
+          </div>
+          <div class="chips">
+            <span class="chip purple">Power BI</span>
+            <span class="chip purple">DAX</span>
+            <span class="chip purple">Excel (Advanced)</span>
+            <span class="chip purple">KPI Modeling</span>
+            <span class="chip purple">Statistical Analysis</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="skill-category">
+            <p class="skill-category-title">Cloud & DevOps</p>
+          </div>
+          <div class="chips">
+            <span class="chip purple">Azure</span>
+            <span class="chip purple">Azure ML</span>
+            <span class="chip purple">Docker</span>
+            <span class="chip purple">CI/CD</span>
+            <span class="chip purple">Git / GitHub</span>
+            <span class="chip purple">Jira / Confluence</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="skill-category">
+            <p class="skill-category-title">Software & APIs</p>
+          </div>
+          <div class="chips">
+            <span class="chip accent">FastAPI</span>
+            <span class="chip accent">Streamlit</span>
+            <span class="chip accent">REST APIs</span>
+            <span class="chip accent">EDI / B2B</span>
+            <span class="chip accent">webMethods</span>
+            <span class="chip accent">Axway</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="skill-category">
+            <p class="skill-category-title">Soft Skills</p>
+          </div>
+          <div class="chips">
+            <span class="chip green">Cross-functional collab</span>
+            <span class="chip green">Stakeholder comms</span>
+            <span class="chip green">Data storytelling</span>
+            <span class="chip green">Problem decomposition</span>
+            <span class="chip green">Detail-oriented</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep" aria-hidden="true"></div>
+
+  <!-- ══════════════ EXPERIENCE ══════════════ -->
+  <section id="experience" class="section">
+    <div class="section-orb orb-purple" aria-hidden="true"></div>
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-num" aria-hidden="true">02</span>
+        <span class="page-kicker">💼 Experience</span>
+        <h2>Work Experience</h2>
+        <p>Hands-on roles in analytics, BI, data integration, and education — across Copenhagen, Denmark and Hyderabad, India.</p>
+      </div>
+
+      <div class="timeline">
+
+        <article class="tl-item reveal">
+          <div class="tl-dot current" aria-hidden="true"></div>
+          <div class="tl-top">
+            <div>
+              <p class="tl-title">Student Assistant — Cost Estimation & Analytics</p>
+              <p class="tl-company">Phillips Medisize</p>
+              <p class="tl-meta">Copenhagen, Denmark · On-site</p>
+            </div>
+            <span class="tl-date">Aug 2025 — Present</span>
+          </div>
+          <ul class="list">
+            <li>Performing cost estimation and financial analysis to support strategic sourcing and procurement decisions.</li>
+            <li>Developing and maintaining Power BI dashboards for real-time KPI tracking and executive reporting.</li>
+            <li>Collaborating with cross-functional stakeholders to gather data requirements and translate them into actionable insights.</li>
+            <li>Ensuring data integrity across reporting pipelines by implementing validation checks and audit workflows.</li>
+          </ul>
+          <div class="chips" style="margin-top:16px;">
+            <span class="chip purple">Power BI</span>
+            <span class="chip accent">SQL</span>
+            <span class="chip purple">Cost Analysis</span>
+            <span class="chip purple">Business Intelligence</span>
+            <span class="chip purple">DAX</span>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot prev" aria-hidden="true"></div>
+          <div class="tl-top">
+            <div>
+              <p class="tl-title">Electronic Data Interchange (EDI) Analyst</p>
+              <p class="tl-company">Kintetsu World Express</p>
+              <p class="tl-meta">Hyderabad, India · On-site</p>
+            </div>
+            <span class="tl-date">Feb 2024 — Jan 2025</span>
+          </div>
+          <ul class="list">
+            <li>Supported EDI/B2B systems ensuring secure, accurate, and timely data transmission between trading partners.</li>
+            <li>Used SQL for data validation, anomaly detection, issue resolution, and regulatory reporting.</li>
+            <li>Designed and developed Power BI dashboards to track operational progress and surface actionable insights for stakeholders.</li>
+            <li>Managed incident tickets and change requests using Jira and Confluence; collaborated with cross-functional teams and external partners to resolve issues within SLA.</li>
+            <li>Gained hands-on experience with webMethods and Axway platforms for enterprise integration and data exchange workflows.</li>
+          </ul>
+          <div class="chips" style="margin-top:16px;">
+            <span class="chip accent">SQL</span>
+            <span class="chip purple">Power BI</span>
+            <span class="chip accent">EDI Systems</span>
+            <span class="chip accent">webMethods</span>
+            <span class="chip accent">Axway</span>
+            <span class="chip green">Jira</span>
+            <span class="chip green">Confluence</span>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot prev" aria-hidden="true"></div>
+          <div class="tl-top">
+            <div>
+              <p class="tl-title">Mathematics Tutor — Statistics & Probability</p>
+              <p class="tl-company">Course Hero</p>
+              <p class="tl-meta">India · Remote</p>
+            </div>
+            <span class="tl-date">Sep 2023 — Feb 2024</span>
+          </div>
+          <ul class="list">
+            <li>Tutored students in Statistics and Probability: probability distributions, hypothesis testing, regression, and data analysis.</li>
+            <li>Developed personalised lesson plans and practice exercises tailored to individual learning styles and exam requirements.</li>
+            <li>Simplified complex mathematical concepts into clear, step-by-step explanations — improving student confidence and performance.</li>
+            <li>Monitored progress and provided structured feedback to keep students on track.</li>
+          </ul>
+          <div class="chips" style="margin-top:16px;">
+            <span class="chip purple">Statistics</span>
+            <span class="chip purple">Probability</span>
+            <span class="chip accent">Hypothesis Testing</span>
+            <span class="chip accent">Data Analysis</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep" aria-hidden="true"></div>
+
+  <!-- ══════════════ PROJECTS ══════════════ -->
+  <section id="projects" class="section">
+    <div class="section-orb orb-blue" aria-hidden="true"></div>
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-num" aria-hidden="true">03</span>
+        <span class="page-kicker">📊 Projects</span>
+        <h2>Featured Projects</h2>
+        <p>End-to-end systems built with production quality, measurable outcomes, and real business impact in mind.</p>
+      </div>
+
+      <article class="project-featured reveal" aria-label="Featured project">
+        <div class="featured-badge">★ Featured Project</div>
+        <p class="project-tag">Azure · Azure ML · Docker · FastAPI · Streamlit · CI/CD</p>
+        <h3 class="project-title">End-to-End ML Pipeline on Microsoft Azure</h3>
+
+        <div style="display:grid; gap:16px; margin:16px 0;">
+          <div>
+            <p class="project-label">Problem</p>
+            <p class="project-desc">
+              Building a production-grade ML system requires far more than a trained model — it needs reliable data ingestion,
+              reproducible preprocessing, automated retraining, containerised serving, and a usable interface. Most academic
+              projects stop at the notebook; this one goes all the way to deployment.
+            </p>
+          </div>
+          <div>
+            <p class="project-label">Approach</p>
+            <p class="project-desc">
+              Designed a modular pipeline on Azure: raw data lands in Azure Blob Storage, flows through a preprocessing layer,
+              and feeds Azure ML for model training. The trained model is packaged in a Docker container, served via
+              FastAPI, and made accessible through a Streamlit UI. A CI/CD pipeline handles automated testing and deployment.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-impact">
+          <span class="metric">✔ Full CI/CD integration</span>
+          <span class="metric">✔ Production-grade serving</span>
+          <span class="metric">✔ Containerised &amp; scalable</span>
+        </div>
+
+        <div class="chips" style="margin-top:16px;">
+          <span class="chip accent">Azure</span>
+          <span class="chip accent">Azure ML</span>
+          <span class="chip purple">Docker</span>
+          <span class="chip accent">FastAPI</span>
+          <span class="chip purple">Streamlit</span>
+          <span class="chip purple">Azure Blob Storage</span>
+          <span class="chip green">CI/CD</span>
+          <span class="chip accent">Python</span>
+        </div>
+
+        <div class="project-links" style="margin-top:20px;">
+          <a class="link" href="#" target="_blank" rel="noreferrer">Architecture overview →</a>
+          <a class="link" href="#" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </div>
+      </article>
+
+      <article class="project-featured reveal" aria-label="Enterprise BI Dashboard Suite">
+        <div class="featured-badge">◈ Project</div>
+        <p class="project-tag">Power BI · SQL · REST APIs · DAX</p>
+        <h3 class="project-title">Enterprise BI Dashboard Suite</h3>
+
+        <div style="display:grid; gap:16px; margin:16px 0;">
+          <div>
+            <p class="project-label">Problem</p>
+            <p class="project-desc">
+              Stakeholders relied on static spreadsheets and delayed reports, leading to decisions made on stale data
+              and manual consolidation effort across multiple source systems.
+            </p>
+          </div>
+          <div>
+            <p class="project-label">Approach</p>
+            <p class="project-desc">
+              Built comprehensive Power BI dashboards from scratch with live data ingestion from multiple REST API
+              sources. Implemented advanced DAX measures for KPI calculations, drill-down navigation, and dynamic
+              filtering. Reduced report delivery time from days to real-time.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-impact">
+          <span class="metric">✔ Real-time data refresh</span>
+          <span class="metric">✔ Decision-ready KPIs</span>
+          <span class="metric">✔ Multi-source integration</span>
+        </div>
+
+        <div class="chips" style="margin-top:16px;">
+          <span class="chip purple">Power BI</span>
+          <span class="chip purple">DAX</span>
+          <span class="chip accent">SQL</span>
+          <span class="chip accent">REST APIs</span>
+          <span class="chip purple">Data Modeling</span>
+        </div>
+
+        <div class="project-links" style="margin-top:20px;">
+          <a class="link" href="#" target="_blank" rel="noreferrer">Case study →</a>
+          <a class="link" href="#" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </div>
+      </article>
+
+      <article class="project-featured reveal" aria-label="Multi-Source ETL Pipeline Architecture">
+        <div class="featured-badge">◈ Project</div>
+        <p class="project-tag">Python · SQL · ETL · Automation</p>
+        <h3 class="project-title">Multi-Source ETL Pipeline Architecture</h3>
+
+        <div style="display:grid; gap:16px; margin:16px 0;">
+          <div>
+            <p class="project-label">Problem</p>
+            <p class="project-desc">
+              Multiple heterogeneous data sources required manual consolidation, causing data drift, duplication,
+              and bottlenecks that blocked downstream analytics workflows.
+            </p>
+          </div>
+          <div>
+            <p class="project-label">Approach</p>
+            <p class="project-desc">
+              Designed and implemented automated ETL workflows in Python to extract, transform, and load data
+              from disparate sources into a unified schema. Added built-in validation checks, data quality
+              monitoring, and automated scheduling.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-impact">
+          <span class="metric">✔ Automated scheduling</span>
+          <span class="metric">✔ Built-in data quality</span>
+        </div>
+
+        <div class="chips" style="margin-top:16px;">
+          <span class="chip accent">ETL</span>
+          <span class="chip accent">Python</span>
+          <span class="chip accent">SQL</span>
+          <span class="chip green">Data Validation</span>
+          <span class="chip green">Automation</span>
+          <span class="chip green">Scheduling</span>
+        </div>
+
+        <div class="project-links" style="margin-top:20px;">
+          <a class="link" href="#" target="_blank" rel="noreferrer">Design doc →</a>
+          <a class="link" href="#" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </div>
+      </article>
+
+      <div class="card reveal" style="margin-top:28px; background: linear-gradient(135deg, rgba(53,208,255,.05), rgba(167,139,250,.04));">
+        <h3>How I approach projects</h3>
+        <p class="muted" style="margin-top:10px; font-size:14px; line-height:1.75; max-width:80ch;">
+          I design for production from day one — that means thinking about data quality, schema evolution,
+          monitoring, and what happens when a source goes down. Good data engineering is invisible when it
+          works and immediately obvious when it doesn't. I try to build the former.
+        </p>
+        <div class="chips" style="margin-top:14px;">
+          <span class="chip green">Schema-first design</span>
+          <span class="chip green">Validation at every layer</span>
+          <span class="chip accent">Observable pipelines</span>
+          <span class="chip accent">Idempotent jobs</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-sep" aria-hidden="true"></div>
+
+  <!-- ══════════════ EDUCATION ══════════════ -->
+  <section id="education" class="section">
+    <div class="section-orb orb-purple" aria-hidden="true"></div>
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-num" aria-hidden="true">04</span>
+        <span class="page-kicker">🎓 Education</span>
+        <h2>Education</h2>
+        <p>Computer Science background — from engineering fundamentals to graduate-level data systems and machine learning.</p>
+      </div>
+
+      <div class="grid-2 stagger" style="margin-bottom:40px;">
+
+        <article class="edu-card">
+          <div class="edu-period">Jan 2025 — Present</div>
+          <p class="edu-degree">MSc Computer Science</p>
+          <p class="edu-school">DTU — Technical University of Denmark</p>
+          <p class="edu-desc" style="margin-top:10px;">
+            Copenhagen, Denmark. Graduate programme focused on data engineering, machine learning,
+            cloud systems, algorithms, and applied mathematics. Working hands-on with Python, SQL,
+            Azure, and data infrastructure tooling.
+          </p>
+          <div class="chips" style="margin-top:14px;">
+            <span class="chip accent">Data Engineering</span>
+            <span class="chip accent">Machine Learning</span>
+            <span class="chip purple">Cloud Systems</span>
+            <span class="chip purple">Algorithms</span>
+            <span class="chip green">Applied Maths</span>
+          </div>
+        </article>
+
+        <article class="edu-card">
+          <div class="edu-period">Aug 2019 — Aug 2023</div>
+          <p class="edu-degree">B.Tech Computer Science &amp; Engineering</p>
+          <p class="edu-school">JNTUH — Jawaharlal Nehru Technological University Hyderabad</p>
+          <p class="edu-desc" style="margin-top:10px;">
+            Hyderabad, India. Four-year undergraduate programme covering core computer science:
+            data structures, databases, software engineering, operating systems, mathematics,
+            and networks. Built the analytical and programming foundations for data engineering work.
+          </p>
+          <div class="chips" style="margin-top:14px;">
+            <span class="chip accent">Data Structures</span>
+            <span class="chip accent">Databases</span>
+            <span class="chip purple">Software Engineering</span>
+            <span class="chip green">Mathematics</span>
+            <span class="chip purple">Networks</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="card reveal" style="background: linear-gradient(135deg, rgba(167,139,250,.05), rgba(53,208,255,.04));">
+        <h3>Continuous learning</h3>
+        <p class="muted" style="margin-top:10px; font-size:14px; line-height:1.75; max-width:76ch;">
+          Beyond formal education, I invest time in building practical data engineering skills.
+          I care about understanding systems deeply — not just how to use a tool, but why it exists
+          and when it makes sense. I'm curious, detail-oriented, and always looking to go one level deeper.
+        </p>
+        <div class="chips" style="margin-top:14px;">
+          <span class="chip green">Self-directed learning</span>
+          <span class="chip green">Project-based practice</span>
+          <span class="chip accent">Industry tooling</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="footer-main">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <!-- Brand col -->
+      <div class="footer-col">
+        <div class="footer-brand" style="margin-bottom:12px;">
+          <span class="brand-mark" aria-hidden="true">⟁</span>
+          <span>Sharan Yalka</span>
+        </div>
+        <p class="muted small" style="max-width:24ch; line-height:1.65;">
+          Data Engineer &amp; Analytics Specialist.<br>MSc CS at DTU Copenhagen.
+        </p>
+        <div class="chips" style="margin-top:14px;">
+          <span class="chip accent" style="font-size:11px; padding:3px 10px;">Open to Work</span>
+        </div>
+      </div>
+
+      <!-- Contact col -->
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-links">
+          <li>
+            <a href="mailto:sharanyalka21@gmail.com">
+              <span>✉</span> sharanyalka21@gmail.com
+            </a>
+          </li>
+          <li>
+            <span class="footer-info"><span>📍</span> Copenhagen, Denmark</span>
+          </li>
+          <li>
+            <span class="footer-info"><span>🎓</span> DTU — MSc Computer Science</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Profiles col -->
+      <div class="footer-col">
+        <p class="footer-col-title">Profiles</p>
+        <ul class="footer-links">
+          <li>
+            <a href="https://www.linkedin.com/in/sharanyalka" target="_blank" rel="noreferrer">
+              <span>💼</span> LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/sharanyalka" target="_blank" rel="noreferrer">
+              <span>🐙</span> GitHub
+            </a>
+          </li>
+          <li>
+            <a href="mailto:sharanyalka21@gmail.com">
+              <span>✉</span> Email
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Navigate col -->
+      <div class="footer-col">
+        <p class="footer-col-title">Navigate</p>
+        <ul class="footer-links">
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#education">Education</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="muted small">© <span id="year"></span> Sharan Yalka · Copenhagen 🇩🇰</p>
+      <a href="#hero" style="color:var(--accent); font-weight:700; font-size:13px;">↑ Back to top</a>
+    </div>
+
+  </div>
+</footer>
+
 </body>
 </html>
